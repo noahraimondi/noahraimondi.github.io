@@ -44,9 +44,7 @@
         createCollectable(type.max, 100, 370, 6, 0.7);
         createCollectable(type.kennedi, 100, 130, 5000, 10);
         createCollectable(type.duck, 800, 300, 0, 0);
-        createCollectable(type.duck, 10, 250, 0, 0);
-        createCollectable(type.duck, 850, 600, 6, 0);
-        createCollectable(type.coal, 500, 600, 6, 0);
+        createCollectable(type.coal, 800, 200, 0, 5);
         
         
         
