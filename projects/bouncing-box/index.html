@@ -80,14 +80,14 @@
 				positionX = positionX + speedX;
 				positionY = positionY + speedY;
 				
-				if (positionX >= boardWidth) {
+				if (positionX >= boardWidth-50) {
 					speedX = -speedX
 				}
 				else if (positionX < 0) {
 					speedX = speedX * -1
 				}
 				//FIX THIS
-				if (positionY >= boardHeight) {
+				if (positionY >= boardHeight-50) {
 					speedY = -speedY
 				}
 				else if (positionY < 0) {
@@ -117,7 +117,6 @@
 				else if (speedY < 0){
 					speedY = speedY -1
 				}
-				
 				;
 
 
