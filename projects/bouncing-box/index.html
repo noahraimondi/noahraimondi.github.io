@@ -73,7 +73,7 @@
 			var points = 0;
 			var speedX = 10;
 			var speedY = 10;
-			var randNum = Math.random() * 100;
+			var randNum = Math.random() * 1000;
 			//var transparency = 0;
 
 			/* 
@@ -82,7 +82,7 @@
 			turn it around! 
 			*/
 			function update() {
-				var randNum = Math.random() * 100;
+				
 				moveBoxTo(positionX, positionY);
 				positionX = positionX + speedX;
 				positionY = positionY + speedY;
@@ -108,8 +108,8 @@
 			the left side of the screen.
 			*/
 			function handleBoxClick() {
-				
 				positionX = randNum;
+				positionY = randNum;
 				//transparency = transparency + 5;
 				points = points + 1
 				changeBoxText(points)
