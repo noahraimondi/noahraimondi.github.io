@@ -43,8 +43,7 @@
 			var board = jQuery('.board');	// reference to the HTML .board element
 			var boardWidth = board.width();	// the maximum X-Coordinate of the screen
 			var boardHeight = jQuery(window).height(); 
-			var colorStr = "rgb(50, 25, 250)";
-
+			
 			// Every 50 milliseconds, call the update Function (see below)
 			setInterval(update, 50);
 			
@@ -73,7 +72,7 @@
 			var points = 0;
 			var speedX = 10;
 			var speedY = 10;
-			var randNum = Math.random() * 1000;
+			var randNum;
 			//var transparency = 0;
 
 			/* 
@@ -91,14 +90,14 @@
 					speedX = -speedX
 				}
 				else if (positionX < 0) {
-					speedX = speedX * -1
+					speedX = -speedX
 				}
-				//FIX THIS
+
 				if (positionY >= boardHeight-65) {
 					speedY = -speedY
 				}
 				else if (positionY < 0) {
-					speedY = speedY * -1
+					speedY = -speedY
 				}
 			};
 
@@ -108,6 +107,7 @@
 			the left side of the screen.
 			*/
 			function handleBoxClick() {
+				randNum = Math.random();
 				positionX = randNum;
 				positionY = randNum;
 				//transparency = transparency + 5;
