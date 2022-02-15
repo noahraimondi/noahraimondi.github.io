@@ -22,7 +22,8 @@ var init = function (window) {
         // TODO 1 : Declare and initialize our variables
         var circle; // Undefinded variable that will hold an individual circle
         var circles = []; // A empty array that will later hold cicrles
-        var num = 250;
+        var num = Math.random() * Math.random() * 1000;
+
 
         // TODO 2 : Create a function that draws a circle 
         function drawCircle(){
