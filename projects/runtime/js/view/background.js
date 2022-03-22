@@ -41,7 +41,7 @@ var background = function (window) {
             
             // TODO: 3 - Add a moon and starfield
             
-            for (var i = 0; i <= 125; i++) { //The loops function for the code
+            for (var i = 0; i <= 135; i++) { //The loops function for the code
             var circle = draw.circle(1,'red','orange',2);
             circle.x = canvasWidth*Math.random(); // give random x
             circle.y = groundY*Math.random();// give random y
@@ -58,10 +58,11 @@ var background = function (window) {
 
             // TODO 5: Part 1 - Add buildings!     Q: This is before TODO 4 for a reason! Why?
             for(var i = 0; i < 5; i++) {
-                var buildingHeight = 300; // Declaired variable, buliding, holds each height
-                var building = draw.rect(75,buildingHeight,'LightGray','Black',1); // deeclares variable to store buliding
+                var buildingHeights = [300, 250, 320, 290, 400]; // Declaired variable, buliding, holds each height
+                var colors = ['LightBlue', 'grey', 'LightGrey', 'white', 'DarkGrey'];
+                var building = draw.rect(75,buildingHeights[i], colors[i],colors[i],1); // deeclares variable to store buliding
                 building.x = 200*i; // Adds 2000 pixels to x value to the buliding each time the game is run
-                building.y = groundY-buildingHeight;//sets the building y posituion by subtract the height of the buliding from ground y
+                building.y = groundY-buildingHeights[i];//sets the building y posituion by subtract the height of the buliding from ground y
                 background.addChild(building);// Adds the building to the background
                 buildings.push(building);//pushing informstion to the buliding array and store it asan index and store it as an inde
             }
@@ -69,9 +70,9 @@ var background = function (window) {
             // TODO 4: Part 1 - Add a tree
             tree = draw.bitmap('img/tree.png');
             tree.x = canvasWidth - 500;
-            tree.y = groundY - 825;
-            tree.scaleY = 5
-            background.addChild(tree);
+            tree.y = groundY - 425;
+            tree.scaleY = 2
+            //background.addChild(tree);
             
         } // end of render function - DO NOT DELETE
         
@@ -85,14 +86,20 @@ var background = function (window) {
             var groundY = ground.y;
             
             // TODO 4: Part 2 - Move the tree!
-            tree.x = tree.x - 50; // Takes current of value x and take 1 pixel 60/second to move the tree to the left
+            tree.x = tree.x - 10; // Takes current of value x and take 1 pixel 60/second to move the tree to the left
             // if the tree is less than -200 pixels then reasign canvasWidth to the trees x position
             if(tree.x < -200) {//This is what makes the tree  move from thhe left side to the right side 
                 tree.x = canvasWidth;
             }
             
-            // TODO 5: Part 2 - Parallax
             
+            // TODO 5: Part 2 - Parallax
+            for (var i = 0; i < buildings.length; i++){
+                buildings[i].x = buildings[i].x -1;
+                if (buildings[i].x < -75 ){
+                    buildings[i].x = canvasWidth; 
+                }
+            }
 
         } // end of update function - DO NOT DELETE
         
