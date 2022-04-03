@@ -16,17 +16,62 @@ var level01 = function (window) {
             "number": 1, 
             "speed": -3,
             "gameItems": [
-                { "type": "sawblade", "x": 400, "y": groundY - 110},
-                { "type": "sawblade", "x": 600, "y": groundY - 110},
-                { "type": "sawblade", "x": 900, "y": groundY - 110},
+                { "type": "sawblade", "x": 400, "y": groundY - 1},
+                { "type": "sawblade", "x": 600, "y": groundY + 5},
+                { "type": "sawblade", "x": 900, "y": groundY - 2},
+                { "type": "sawblade", "x": 1000, "y": groundY - 3},
+                { "type": "sawblade", "x": 1800, "y": groundY + 5},
+                { "type": "sawblade", "x": 2500, "y": groundY + 3},
+                { "type": "sawblade", "x": 4500, "y": groundY - 1},
+                { "type": "sawblade", "x": 15600, "y": groundY - 2},
+                { "type": "sawblade", "x": 2100, "y": groundY - 1},
+                { "type": "sawblade", "x": 3500, "y": groundY - 1.75},
+                { "type": "sawblade", "x": 6000, "y": groundY - 1},
+                { "type": "sawblade", "x": 4500, "y": groundY - 3},
+                { "type": "sawblade", "x": 2900, "y": groundY + 5},
+                { "type": "sawblade", "x": 5000, "y": groundY - 0.75},
 
-                { "type": "enemy", "x": 700, "y": groundY - 20},
-                { "type": "enemy", "x": 800, "y": groundY - 20},
-                { "type": "enemy", "x": 900, "y": groundY - 20},
+                { "type": "enemy", "x": 700, "y": groundY - 40},
+                { "type": "enemy", "x": 900, "y": groundY - 40},
+                { "type": "enemy", "x": 1000, "y": groundY - 40},
+                { "type": "enemy", "x": 1500, "y": groundY - 50},
+                { "type": "enemy", "x": 2100, "y": groundY - 30},
+                { "type": "enemy", "x": 2700, "y": groundY - 40},
+                { "type": "enemy", "x": 3200, "y": groundY - 40},
+                { "type": "enemy", "x": 3600, "y": groundY - 30},
+                { "type": "enemy", "x": 4000, "y": groundY - 30},
+                { "type": "enemy", "x": 4500, "y": groundY - 60},
+                { "type": "enemy", "x": 5000, "y": groundY - 40},
+                { "type": "enemy", "x": 5300, "y": groundY - 40},
+                { "type": "enemy", "x": 5700, "y": groundY - 40},
+                { "type": "enemy", "x": 650, "y": groundY - 30},
 
-                { "type": "reward", "x": 650, "y": groundY - 20},
-                { "type": "reward", "x": 750, "y": groundY - 20},
-                { "type": "reward", "x": 850, "y": groundY - 20},
+ 
+
+
+                { "type": "reward", "x": 250, "y": groundY - 90},
+                { "type": "reward", "x": 750, "y": groundY - 90},
+                { "type": "reward", "x": 850, "y": groundY - 80},
+                { "type": "reward", "x": 1750, "y": groundY - 70},
+                { "type": "reward", "x": 1050, "y": groundY - 90},
+                { "type": "reward", "x": 4550, "y": groundY - 80},
+                { "type": "reward", "x": 2350, "y": groundY - 90},
+                { "type": "reward", "x": 2950, "y": groundY - 90},
+                { "type": "reward", "x": 3750, "y": groundY - 80},
+                { "type": "reward", "x": 3450, "y": groundY - 70},
+                { "type": "reward", "x": 4050, "y": groundY - 80},
+                { "type": "reward", "x": 4650, "y": groundY - 70},
+                { "type": "reward", "x": 5050, "y": groundY - 70},
+                { "type": "reward", "x": 6050, "y": groundY - 90},
+                { "type": "reward", "x": 7850, "y": groundY - 80},
+                { "type": "reward", "x": 7850, "y": groundY - 80},
+                { "type": "reward", "x": 7850, "y": groundY - 70},
+                { "type": "reward", "x": 7850, "y": groundY - 60},
+                { "type": "reward", "x": 7850, "y": groundY - 80},
+                { "type": "reward", "x": 7850, "y": groundY - 90},
+                { "type": "reward", "x": 7850, "y": groundY - 100},
+ 
+                
             ]
         };
         window.levelData = levelData;
@@ -45,26 +90,26 @@ var level01 = function (window) {
             sawBladeHitZone.y = y;// y value of hit zone
             game.addGameItem(sawBladeHitZone); //adds the hit zone to the game.
             
-            var obstacleImage = draw.bitmap('img/sawblade.png');//draws the image and stored it in the objewcts variable//adds the image to the hit zone
+            var obstacleImage = draw.bitmap('img/sleepPotatoeBad1.png');//draws the image and stored it in the objewcts variable//adds the image to the hit zone
             sawBladeHitZone.addChild(obstacleImage);
-            obstacleImage.x = -24.75; // lines up x value of  image 
-            obstacleImage.y = -25;//lines up y value of image
-            sawBladeHitZone.rotationalVelocity = 500000;
+            obstacleImage.x = -20.75; // lines up x value of  image 
+            obstacleImage.y = -20;//lines up y value of image
+            //sawBladeHitZone.rotationalVelocity = 500000;
         }
 
         function createEnemy(x, y) {
             var enemy = game.createGameItem('enemy',25);// create the enemy game item and stores it in the variable enemy
-            var redSquare = draw.rect(50,50,'red');//draws a red red square and stores it in the the var redSquare
-            redSquare.x = -25;// align the square on
-            redSquare.y = -25;
-            enemy.addChild(redSquare);
+            var sadPotatoe = draw.bitmap('img/sadPotatoeBad1.png');//draws a red red square and stores it in the the var sadPotatoe
+            sadPotatoe.x = -25;// align the square on
+            sadPotatoe.y = -25;
+            enemy.addChild(sadPotatoe);
 
             enemy.x = x;
             enemy.y = y;
             game.addGameItem(enemy);
 
             enemy.velocityX = -1;//move enemy to the left
-            enemy.rotationalVelocity = 100;// rotates the enemy
+            //enemy.rotationalVelocity = 100;// rotates the enemy
 
             //this function detects if enemy colides with halle bot and it hit the decreases health
             enemy.onPlayerCollision = function() {
@@ -82,17 +127,17 @@ var level01 = function (window) {
 
         function createReward(x, y) {
             var reward = game.createGameItem('reward',25);// create the enemy game item and stores it in the variable enemy
-            var blueSquare = draw.rect(50,50,'blue');//draws a red red square and stores it in the the var blueSquare
-            blueSquare.x = -25;// align the square on
-            blueSquare.y = -25;
-            reward.addChild(blueSquare);
+            var happyCarrot = draw.bitmap('img/carrotIsGood1.png');//draws a red red square and stores it in the the var happyCarrot
+            happyCarrot.x = -20;// align the square on
+            happyCarrot.y = -40;
+            reward.addChild(happyCarrot);
 
             reward.x = x;
             reward.y = y;
             game.addGameItem(reward);
 
             reward.velocityX = -1;//move reward to the left
-            reward.rotationalVelocity = 100;// rotates the reward
+            //reward.rotationalVelocity = 100;// rotates the reward
 
             //this function detects if reward colides with halle bot and it hit the decreases health
             reward.onPlayerCollision = function() {
@@ -113,16 +158,16 @@ var level01 = function (window) {
 
                 if (gameItem.type === "enemy"){
                     createEnemy(gameItem.x, gameItem.y)
-
+                }
                 if (gameItem.type === "reward"){
                     createReward(gameItem.x, gameItem.y)
-               }
+                }
             }
 
         // DO NOT EDIT CODE BELOW HERE
     }
     };
-}
+
 // DON'T REMOVE THIS CODE //////////////////////////////////////////////////////
 if((typeof process !== 'undefined') &&
     (typeof process.versions.node !== 'undefined')) {
