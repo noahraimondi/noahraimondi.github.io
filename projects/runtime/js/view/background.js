@@ -37,7 +37,7 @@ var background = function (window) {
             // TODO: 2 - Part 2
             // this fills the background with a obnoxious yellow
             // you should modify this to suit your game
-            var backgroundFill = draw.rect(canvasWidth,groundY,'#87969B'); //cREATES A VARIABLE CALLED BCKGROUND FILL a solid color that installs a rectangle that acts as the background
+            var backgroundFill = draw.rect(canvasWidth,groundY,'#1F1F1F'); //cREATES A VARIABLE CALLED BCKGROUND FILL a solid color that installs a rectangle that acts as the background
             background.addChild(backgroundFill); //Add the background to the canvas
             
             // TODO: 3 - Add a moon and starfield
@@ -62,7 +62,6 @@ var background = function (window) {
                 blue.x = canvasWidth*Math.random(); // give random x
                 blue.y = groundY -283.75;// holds the x value
                 background.addChild(blue);  //Add circles to background
-                blue.velocityX =-1
                 } 
 
             for (var i = 0; i <= 5; i++) { //The loops function for the code
@@ -121,7 +120,6 @@ var background = function (window) {
             var canvasWidth = app.canvas.width;
             var canvasHeight = app.canvas.height;
             var groundY = ground.y;
-            
             
             // TODO 4: Part 2 - Move the tree!
             //tree.x = tree.x - 10; // Takes current of value x and take 1 pixel 60/second to move the tree to the left
