@@ -43,7 +43,13 @@ function runProgram(){
   function handleKeyDown(event) {
     if(event.which === KEY.DOWN){
       console.log("Down pressed");
-    }
+    } else if(event.which === KEY.LEFT){
+      console.log("Left pressed");
+    } else if(event.which === KEY.RIGHT){
+      console.log("Right pressed");
+    } else if(event.which === KEY.UP){
+      console.log("Up pressed");
+    } else 
     console.log("You hit the key number " + event.which)
   }
 
