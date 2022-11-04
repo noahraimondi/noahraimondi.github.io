@@ -18,6 +18,6 @@ body {
   border-radius: 23.23px;
   position: absolute;
   
-/*   left: 100px; */  /* Uncomment if you want to set a "starting" position */
-/*   top: 100px;  */  /* Uncomment if you want to set a "starting" position */
+left: 100px;
+top: 100px;
 }
