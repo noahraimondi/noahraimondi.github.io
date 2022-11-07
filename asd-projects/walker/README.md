@@ -269,7 +269,7 @@ Ideally, the `walker` game item would stop moving once we release the arrow key.
 
 # Challenge Ideas:
 
-## Prevent the box from leaving the bounds of the board.
+!! Prevent the box from leaving the bounds of the board.
 
 How does this new concern relate to the existing concerns?
 
