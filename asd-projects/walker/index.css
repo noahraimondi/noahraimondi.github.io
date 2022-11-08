@@ -6,7 +6,7 @@ body {
 #board {
   width: 440px;
   height: 440px;
-  border: 1px solid white;
+  border: 5px solid grey;
   background-color: black;
   position: relative;
 }
@@ -23,10 +23,10 @@ top: 100px;
 }
 
 #agatha {
-  background-color: darkcyan;
+  background-color: darksalmon;
   width: 50px;
   height: 50px;
-  border-radius: 23.23px;
+  border-radius: 22px;
   position: absolute;
   
 left: 100px;

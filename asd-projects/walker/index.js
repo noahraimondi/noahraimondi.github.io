@@ -50,14 +50,15 @@ function runProgram(){
     repositionGameItem();
     redrawGameItem ();
     limitPosition ();
+    noTouch ();
   }
   
   /* 
   Called in response to events.
   */
   function handleKeyDown(event) {
-    respondKeyDownW (event)// code for when a key is pressed
-    respondKeyDownA (event)
+    respondKeyDownW (event);// code for when a key is pressed
+    respondKeyDownA (event);
   }
   function handleKeyUp(event) {
     respondKeyUpW (event);// code for when a key is released
@@ -90,27 +91,53 @@ function runProgram(){
   }
 
   function limitPosition (){
-    if (positionX >= 390){
-      positionX = 390;
-    } else if (positionX <= 0){
-      positionX = 0;
+    if (positionWX >= 390){
+      positionWX = 390;
+    } else if (positionWX <= 0){
+      positionWX = 0;
     }
-    if (positionY >= 390){
-      positionY = 390;
-    } else if (positionY <= 0){
-      positionY = 0;
+    if (positionWY >= 390){
+      positionWY = 390;
+    } else if (positionWY <= 0){
+      positionWY = 0;
     }
-    if (positionX >= 390){
-      positionX = 390;
-    } else if (positionX <= 0){
-      positionX = 0;
+    if (positionAX >= 390){
+      positionAX = 390;
+    } else if (positionAX <= 0){
+      positionAX = 0;
     }
-    if (positionY >= 390){
-      positionY = 390;
-    } else if (positionY <= 0){
-      positionY = 0;
+    if (positionAY >= 390){
+      positionAY = 390;
+    } else if (positionAY <= 0){
+      positionAY = 0;
     }
   }
+
+  function noTouch (){
+    if (positionWX = positionAX){
+      if (positionWX === -5){
+        positionWX -= 10; 
+      } else if (positionWX === 5){
+        positionWX += 10;
+      } else if (positionAX === -5){
+        positionAX -= 10; 
+      } else if (positionAX === 5){
+        positionAX += 10;
+      }
+    }
+    if (positionWY = positionAY){
+      if (positionWY === -5){
+        positionWY -= 10; 
+      } else if (positionWY=== 5){
+        positionWY += 10;
+      } else if (positionAY === -5){
+        positionAY -= 10; 
+      } else if (positionAY === 5){
+        positionAY += 10;
+      }
+    }
+  }
+
   // Only of walker
   function respondKeyDownW (event){
     if(event.which === KEYW.DOWN){
@@ -120,13 +147,12 @@ function runProgram(){
       speedWX = -5;
       console.log("Left pressed");
     } else if(event.which === KEYW.RIGHT){
-      speedwX = +5;
+      speedWX = +5;
       console.log("Right pressed");
     } else if(event.which === KEYW.UP){
       speedWY = -5;
       console.log("Up pressed");
-    } else 
-    console.log("You pressed key number " + event.which)
+    }
   }
   
   function respondKeyUpW (event){
@@ -142,12 +168,10 @@ function runProgram(){
     } else if(event.which === KEYW.UP){
       speedWY = 0;
       console.log("Up released");
-    } else 
-    console.log("You released key number " + event.which)
+    }
   }
 
-// All for agatha
-// position increased based on speed
+// Only for agatha
 function respondKeyDownA (event){
   if(event.which === KEYA.DOWN){
     console.log("Down pressed"); 
