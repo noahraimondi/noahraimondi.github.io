@@ -56,6 +56,8 @@ function runProgram(){
   /* 
   Called in response to events.
   */
+  
+
   function handleKeyDown(event) {
     respondKeyDownW (event);// code for when a key is pressed
     respondKeyDownA (event);
@@ -113,29 +115,43 @@ function runProgram(){
     }
   }
 
-  function noTouch (){
-    if (positionWX = positionAX){
-      if (positionWX === -5){
-        positionWX -= 10; 
-      } else if (positionWX === 5){
-        positionWX += 10;
-      } else if (positionAX === -5){
-        positionAX -= 10; 
-      } else if (positionAX === 5){
-        positionAX += 10;
+  function noTouch (event){
+    if (positionWX === positionAX || positionWY === positionAY){
+      if (speedWX === -5){
+        positionWX += 5; 
+      } else if (speedWX === 5){
+        positionWX -= 5;
+      } else if (speedAX === -5){
+        positionAX += 5; 
+      } else if (speedAX === 5){
+        positionAX -= 5;
+      } else if (speedWY === -5){
+        positionWY += 5; 
+      } else if (speedWY === 5){
+        positionWY -= 5;
+      } else if (speedAY === -5){
+        positionAY += 5; 
+      } else if (speedAY === 5){
+        positionAY -= 5;
       }
     }
-    if (positionWY = positionAY){
-      if (positionWY === -5){
-        positionWY -= 10; 
-      } else if (positionWY=== 5){
-        positionWY += 10;
-      } else if (positionAY === -5){
-        positionAY -= 10; 
-      } else if (positionAY === 5){
-        positionAY += 10;
-      }
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   }
 
   // Only of walker
@@ -218,8 +234,44 @@ function respondKeyUpA (event){
 
   
 
-
-
+// fail safe
+/*
+    if (positionWX === positionAX || positionWY === positionAY){
+      if (speedWX === -5){
+        positionWX += 5; 
+      } else if (speedWX = 5){
+        positionWX += 10;
+      } else if (speedAX = -5){
+        positionAX += 5; 
+      } else if (speedAX = 5){
+        positionAX -= 5;
+      } else if (speedWY === -5){
+        positionWY += 5; 
+      } else if (speedWY === 5){
+        positionWY -= 5;
+      } else if (speedAY === -5){
+        positionAY += 5; 
+      } else if (speedAY === 5){
+        positionAY -= 5;
+      }
+    }
+    */
+   /*
+    if (positionWY === positionAY){
+      if (speedWY === -5){
+        positionWY += 5; 
+      } else if (speedWY === 5){
+        positionWY -= 5;
+      } else if (speedAY === -5){
+        positionAY += 5; 
+      } else if (speedAY === 5){
+        positionAY -= 5;
+      } else if (speedWY === -5 || speedAY === 5){
+        positionAY -= 5;
+        positionWY += 5;
+      }
+    }
+    */
 
 
 
