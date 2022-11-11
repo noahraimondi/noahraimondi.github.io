@@ -115,7 +115,7 @@ function runProgram(){
     }
   }
 
-  function noTouch (event){
+  function noTouch (){
     if (positionWX === positionAX || positionWY === positionAY){
       if (speedWX === -5){
         positionWX += 5; 
@@ -137,7 +137,11 @@ function runProgram(){
     }
 
 
+  function voidTouch (){
+    if ($("#walker").css("")){
 
+    }
+  }
 
 
 
