@@ -22,15 +22,21 @@ function runProgram(){
     "UP": 87,
     "DOWN": 83,
   }
+
   // Declared Variables
-  var positionWX = 0; // the x-coordinate location
-  var positionWY = 0; // the y-coordinate location
-  var speedWX = 0; // the speed for the x-axis
-  var speedWY = 0; // the speed for the y-axis
-  var positionAX = 0;
-  var positionAY = 0;
-  var speedAX = 0;
-  var speedAY = 0;
+  var walker = {
+    positionX: 0,
+    positionY: 0,
+    speedX: 0,
+    speedY: 0,
+  }
+  var agatha = {
+    positionX: 0,
+    positionY: 0,
+    speedX: 0,
+    speedY: 0,
+  }
+
   // Game Item Objects
 
 
@@ -79,68 +85,62 @@ function runProgram(){
 
   // position increased based on speed
   function repositionGameItem (){
-    positionWX += speedWX;
-    positionAX += speedAX;
-    positionWY += speedWY;
-    positionAY += speedAY;
+    walker.positionX += walker.speedX;
+    agatha.positionX += agatha.speedX;
+    walker.positionY += walker.speedY;
+    agatha.positionY += agatha.speedY;
   }
   // 
   function redrawGameItem (){
-    $("#walker").css("left", positionWX);
-    $("#agatha").css("left", positionAX);
-    $("#walker").css("top", positionWY);
-    $("#agatha").css("top", positionAY);
+    $("#walker").css("left", walker.positionX);
+    $("#agatha").css("left", agatha.positionX);
+    $("#walker").css("top", walker.positionY);
+    $("#agatha").css("top", agatha.positionY);
   }
 
   function limitPosition (){
-    if (positionWX >= 390){
-      positionWX = 390;
-    } else if (positionWX <= 0){
-      positionWX = 0;
+    if (walker.positionX >= $("#board").width()){
+      walker.positionX = 390;
+    } else if (walker.positionX <= 0){
+      walker.positionX = 0;
     }
-    if (positionWY >= 390){
-      positionWY = 390;
-    } else if (positionWY <= 0){
-      positionWY = 0;
+    if (walker.positionY >= $("#board").height()){
+      walker.positionY = 390;
+    } else if (walker.positionY <= 0){
+      walker.positionY = 0;
     }
-    if (positionAX >= 390){
-      positionAX = 390;
-    } else if (positionAX <= 0){
-      positionAX = 0;
+    if (agatha.positionX >= 390){
+      agatha.positionX = 390;
+    } else if (agatha.positionX <= 0){
+      agatha.positionX = 0;
     }
-    if (positionAY >= 390){
-      positionAY = 390;
-    } else if (positionAY <= 0){
-      positionAY = 0;
+    if (agatha.positionY >= 390){
+      agatha.positionY = 390;
+    } else if (agatha.positionY <= 0){
+      agatha.positionY = 0;
     }
   }
 
   function noTouch (){
-    if (positionWX === positionAX || positionWY === positionAY){
-      if (speedWX === -5){
-        positionWX += 5; 
-      } else if (speedWX === 5){
-        positionWX -= 5;
-      } else if (speedAX === -5){
-        positionAX += 5; 
-      } else if (speedAX === 5){
-        positionAX -= 5;
-      } else if (speedWY === -5){
-        positionWY += 5; 
-      } else if (speedWY === 5){
-        positionWY -= 5;
-      } else if (speedAY === -5){
-        positionAY += 5; 
-      } else if (speedAY === 5){
-        positionAY -= 5;
+    if (walker.positionX === agatha.positionX || walker.positionY === agatha.positionY){
+      if (walker.speedX === -5){
+        walker.positionX += 5; 
+      } else if (walker.speedX === 5){
+        walker.positionX -= 5;
+      } else if (agatha.speedX === -5){
+        agatha.positionX += 5; 
+      } else if (agatha.speedX === 5){
+        agatha.positionX -= 5;
+      } else if (walker.speedY === -5){
+        walker.positionY += 5; 
+      } else if (walker.speedY === 5){
+        walker.positionY -= 5;
+      } else if (agatha.speedY === -5){
+        agatha.positionY += 5; 
+      } else if (agatha.speedY === 5){
+        agatha.positionY -= 5;
       }
     }
-
-
-  function voidTouch (){
-    if ($("#walker").css("")){
-
-    }
   }
 
 
@@ -148,62 +148,52 @@ function runProgram(){
 
 
 
-
-
-
-
-
-
-
-
+// Only of walker
+function respondKeyDownW (event){
+  if(event.which === KEYW.DOWN){
+    console.log("Down pressed"); 
+    walker.speedY = +5;
+  } else if(event.which === KEYW.LEFT){
+    walker.speedX = -5;
+    console.log("Left pressed");
+  } else if(event.which === KEYW.RIGHT){
+    walker.speedX = +5;
+    console.log("Right pressed");
+  } else if(event.which === KEYW.UP){
+    walker.speedY = -5;
+    console.log("Up pressed");
   }
+}
 
-  // Only of walker
-  function respondKeyDownW (event){
-    if(event.which === KEYW.DOWN){
-      console.log("Down pressed"); 
-      speedWY = +5;
-    } else if(event.which === KEYW.LEFT){
-      speedWX = -5;
-      console.log("Left pressed");
-    } else if(event.which === KEYW.RIGHT){
-      speedWX = +5;
-      console.log("Right pressed");
-    } else if(event.which === KEYW.UP){
-      speedWY = -5;
-      console.log("Up pressed");
-    }
+function respondKeyUpW (event){
+  if(event.which === KEYW.DOWN){
+    console.log("Down released"); 
+    walker.speedY = 0;
+  } else if(event.which === KEYW.LEFT){
+    walker.speedX = 0;
+    console.log("Left released");
+  } else if(event.which === KEYW.RIGHT){
+    walker.speedX = 0;
+    console.log("Right released");
+  } else if(event.which === KEYW.UP){
+    walker.speedY = 0;
+    console.log("Up released");
   }
-  
-  function respondKeyUpW (event){
-    if(event.which === KEYW.DOWN){
-      console.log("Down released"); 
-      speedWY = 0;
-    } else if(event.which === KEYW.LEFT){
-      speedWX = 0;
-      console.log("Left released");
-    } else if(event.which === KEYW.RIGHT){
-      speedWX = 0;
-      console.log("Right released");
-    } else if(event.which === KEYW.UP){
-      speedWY = 0;
-      console.log("Up released");
-    }
-  }
+}
 
 // Only for agatha
 function respondKeyDownA (event){
   if(event.which === KEYA.DOWN){
     console.log("Down pressed"); 
-    speedAY = +5;
+    agatha.speedY = +5;
   } else if(event.which === KEYA.LEFT){
-    speedAX = -5;
+    agatha.speedX = -5;
     console.log("Left pressed");
   } else if(event.which === KEYA.RIGHT){
-    speedAX = +5;
+    agatha.speedX = +5;
     console.log("Right pressed");
   } else if(event.which === KEYA.UP){
-    speedAY = -5;
+    agatha.speedY = -5;
     console.log("Up pressed");
   }
 }
@@ -211,84 +201,16 @@ function respondKeyDownA (event){
 function respondKeyUpA (event){
   if(event.which === KEYA.DOWN){
     console.log("Down released"); 
-    speedAY = 0;
+    agatha.speedY = 0;
   } else if(event.which === KEYA.LEFT){
-    speedAX = 0;
+    agatha.speedX = 0;
     console.log("Left released");
   } else if(event.which === KEYA.RIGHT){
-    speedAX = 0;
+    agatha.speedX = 0;
     console.log("Right released");
   } else if(event.which === KEYA.UP){
-    speedAY = 0;
+    agatha.speedY = 0;
     console.log("Up released");
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-// fail safe
-/*
-    if (positionWX === positionAX || positionWY === positionAY){
-      if (speedWX === -5){
-        positionWX += 5; 
-      } else if (speedWX = 5){
-        positionWX += 10;
-      } else if (speedAX = -5){
-        positionAX += 5; 
-      } else if (speedAX = 5){
-        positionAX -= 5;
-      } else if (speedWY === -5){
-        positionWY += 5; 
-      } else if (speedWY === 5){
-        positionWY -= 5;
-      } else if (speedAY === -5){
-        positionAY += 5; 
-      } else if (speedAY === 5){
-        positionAY -= 5;
-      }
-    }
-    */
-   /*
-    if (positionWY === positionAY){
-      if (speedWY === -5){
-        positionWY += 5; 
-      } else if (speedWY === 5){
-        positionWY -= 5;
-      } else if (speedAY === -5){
-        positionAY += 5; 
-      } else if (speedAY === 5){
-        positionAY -= 5;
-      } else if (speedWY === -5 || speedAY === 5){
-        positionAY -= 5;
-        positionWY += 5;
-      }
-    }
-    */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
 }
