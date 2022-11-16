@@ -56,7 +56,6 @@ function runProgram(){
     repositionGameItem();
     redrawGameItem ();
     limitPosition ();
-    noTouch ();
   }
   
   /* 
@@ -121,15 +120,15 @@ function runProgram(){
     }
   }
 
-  function noTouch (){
-    
-    
+   
     
     
     
     
     /* Might go back to this later in the year...
-    if (walker.positionX +25 === agatha.positionX || walker.positionY +25 === agatha.positionY){
+    //function noTouch (){
+    
+   if (walker.positionX +25 === agatha.positionX || walker.positionY +25 === agatha.positionY){
       if (walker.speedX === -5){
         walker.positionX += 5; 
       } else if (walker.speedX === 5){
