@@ -22,12 +22,7 @@ function runProgram(){
     "UP": 87,
     "DOWN": 83,
   }
-  var BODY1_HEIGHT = $("#walker").height();
-  var BODY1_WIDTH = $("#walker").width();
-
-  var BODY2_HEIGHT = $("#agatha").height();
-  var BODY2_WIDTH = $("#agatha").width();
-
+  
   // Declared Variables
   var walker = {
     positionX: 0,
@@ -103,14 +98,7 @@ function runProgram(){
     $("#agatha").css("top", agatha.positionY);
   }
 
-  function limitPosition (body1, body2){
-    body1.right = body1.x + BODY1_WIDTH;
-    body1.bottom = body1.y + BODY1_HEIGHT;
-    body2.right = body2.x + BODY1_WIDTH;
-    body2.bottom = body2.y + BODY1_HEIGHT;
-
-
-
+  function limitPosition (){
     if (walker.positionX +50 >= $("#board").width()){
       walker.positionX = $("#board").width()-50;
     } else if (walker.positionX <= 0){
@@ -127,7 +115,7 @@ function runProgram(){
       agatha.positionX = 0;
     }
     if (agatha.positionY +50 >= $("#board").height()){
-      agatha.positionY +50 = $("#board").height();
+      agatha.positionY = $("#board").height() -50;
     } else if (agatha.positionY <= 0){
       agatha.positionY = 0;
     }
@@ -140,8 +128,8 @@ function runProgram(){
     
     
     
-    
-    if (walker.positionX === agatha.positionX || walker.positionY === agatha.positionY){
+    /* Might go back to this later in the year...
+    if (walker.positionX +25 === agatha.positionX || walker.positionY +25 === agatha.positionY){
       if (walker.speedX === -5){
         walker.positionX += 5; 
       } else if (walker.speedX === 5){
@@ -161,7 +149,7 @@ function runProgram(){
       }
     }
   }
-
+  */
 
 
 
