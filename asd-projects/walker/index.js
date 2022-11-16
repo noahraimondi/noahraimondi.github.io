@@ -22,6 +22,11 @@ function runProgram(){
     "UP": 87,
     "DOWN": 83,
   }
+  var BODY1_HEIGHT = $("#walker").height();
+  var BODY1_WIDTH = $("#walker").width();
+
+  var BODY2_HEIGHT = $("#agatha").height();
+  var BODY2_WIDTH = $("#agatha").width();
 
   // Declared Variables
   var walker = {
@@ -98,30 +103,44 @@ function runProgram(){
     $("#agatha").css("top", agatha.positionY);
   }
 
-  function limitPosition (){
-    if (walker.positionX >= $("#board").width()){
-      walker.positionX = 390;
+  function limitPosition (body1, body2){
+    body1.right = body1.x + BODY1_WIDTH;
+    body1.bottom = body1.y + BODY1_HEIGHT;
+    body2.right = body2.x + BODY1_WIDTH;
+    body2.bottom = body2.y + BODY1_HEIGHT;
+
+
+
+    if (walker.positionX +50 >= $("#board").width()){
+      walker.positionX = $("#board").width()-50;
     } else if (walker.positionX <= 0){
       walker.positionX = 0;
     }
-    if (walker.positionY >= $("#board").height()){
-      walker.positionY = 390;
+    if (walker.positionY +50 >= $("#board").height()){
+      walker.positionY = $("#board").height()-50;
     } else if (walker.positionY <= 0){
       walker.positionY = 0;
     }
-    if (agatha.positionX >= 390){
-      agatha.positionX = 390;
+    if (agatha.positionX +50 >= $("#board").width()){
+      agatha.positionX = $("#board").width()-50;
     } else if (agatha.positionX <= 0){
       agatha.positionX = 0;
     }
-    if (agatha.positionY >= 390){
-      agatha.positionY = 390;
+    if (agatha.positionY +50 >= $("#board").height()){
+      agatha.positionY +50 = $("#board").height();
     } else if (agatha.positionY <= 0){
       agatha.positionY = 0;
     }
   }
 
   function noTouch (){
+    
+    
+    
+    
+    
+    
+    
     if (walker.positionX === agatha.positionX || walker.positionY === agatha.positionY){
       if (walker.speedX === -5){
         walker.positionX += 5; 
