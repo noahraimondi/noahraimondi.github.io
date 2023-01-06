@@ -191,9 +191,13 @@ function runProgram(){
             }
           }
         }
-   */
+   
 
-
+        var BODY1_HEIGHT = $("#walker").height();
+        var BODY1_WIDTH = $("#agatha").height();
+    
+        var BODY2_HEIGHT = $("#walker").height();
+        var BODY2_WIDTH = $("#agatha").height();
 
     function ifTouch (body1, body2){
       //sides of the walker
@@ -212,16 +216,16 @@ function runProgram(){
         body2.leftX < body1.rightX &&
         body2.bottomY > body1.topY &&
         body2.topY < body1.bottomY){
-        walker = -walker;
-        walker = -walker;
-        agatha = -agatha;
-        agatha = -agatha;
+        walker.speedX = 0;
+        walker.speedY = 0;
+        agatha.speedX = 0;
+        agatha.speedY = 0;
         return true;
       } else {
         return false;
       }        
     }
-
+    */
 
 
     // Only of walker
