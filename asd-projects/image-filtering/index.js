@@ -36,10 +36,9 @@ function applyFilter (filterFunction){
   for(var i = 0; i < image.length; i++){
     for(var j = 0; j < image[i].length;j++){
       var rgbString = image[i][j]
-      var rgbNumbers = filterFunction(rgbNumbers);
-      //rgbNumbers[RED]= 150;
-      //rgbNumbers[GREEN]= 255;
-      //rgbNumbers[BLUE]= 255;
+      var rgbNumbers = rgbStringToArray(rgbString);
+      filterFunction(rgbNumbers)
+      //rgbNumbers[RED]= 255;
       rgbString = rgbArrayToString(rgbNumbers)
       console.log(rgbString)
       image[i][j] =rgbString
@@ -53,11 +52,15 @@ function applyFilter (filterFunction){
 
 
 // TODO 5: Create the keepInBounds function
-
+function keepInBounds (num){
+  num = Math.min(num, 255)
+  num = Math.max(num, 0)
+  return num
+}
 
 // TODO 3: Create reddify function
-function reddify (one){
-  one[RED] = 200
+function reddify (a){
+  a[RED] = 100
 }
 
 // TODO 6: Create more filter functions
