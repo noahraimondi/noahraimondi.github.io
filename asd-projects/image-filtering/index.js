@@ -4,6 +4,8 @@ $(document).ready(function () {
   render($("#display"), image);
   $("#apply").on("click", applyAndRender);
   $("#reset").on("click", resetAndRender);
+  //Add more buttons ... hehehehe
+
 });
 
 /////////////////////////////////////////////////////////
@@ -20,9 +22,9 @@ function resetAndRender() {
 // all of your apply functions
 function applyAndRender() {
   // Multiple TODOs: Call your apply function(s) here
-  applyFilterNoBackground(reddify);
-  applyFilterNoBackground(decreaseBlue);
-  applyFilter(increaseGreenByBlue);
+  applyFilterOnlyBackground(reddify);
+  applyFilter(decreaseBlue);
+  applyFilterNoBackground(increaseGreenByBlue);
   
   // do not change the below line of code
   render($("#display"), image);
@@ -49,13 +51,26 @@ function applyFilter (filterFunction){
 
 // TODO 7: Create the applyFilterNoBackground function
 function applyFilterNoBackground (filterFunction){
+  var backColor = image[0][0];
   for(var i = 0; i < image.length; i++){
     for(var j = 0; j < image[i].length;j++){
-      var backColor = image[0][0];
       var rgbString = image[i][j]
       var rgbNumbers = rgbStringToArray(rgbString);
-      //rgbString === backColor ? rgbString : backColor
+      rgbString === backColor ? rgbString : filterFunction(rgbNumbers)
       //filterFunction(rgbNumbers)
+      rgbString = rgbArrayToString(rgbNumbers)
+      image[i][j] =rgbString
+    }
+  }
+}
+
+function applyFilterOnlyBackground (filterFunction){
+  var backColor = image[0][0];
+  for(var i = 0; i < image.length; i++){
+    for(var j = 0; j < image[i].length;j++){
+      var rgbString = image[i][j]
+      var rgbNumbers = rgbStringToArray(rgbString);
+      rgbString === backColor ? filterFunction(rgbNumbers) : rgbString
       rgbString = rgbArrayToString(rgbNumbers)
       image[i][j] =rgbString
     }
@@ -73,7 +88,7 @@ function keepInBounds (num){
 
 // TODO 3: Create reddify function
 function reddify (arr){
-  arr[RED] = 255
+  arr[RED] = 200
 }
 
 // TODO 6: Create more filter functions
@@ -85,4 +100,76 @@ function increaseGreenByBlue (arr){
   arr[GREEN] = keepInBounds(arr[GREEN] + arr[BLUE])
 }
 
+function smudgeLess (arr){
+
+}
+
 // CHALLENGE code goes below here
+function applySmudge (filterFunction){
+  var backColor = image[0][0];
+  for(var i = 0; i < image.length; i++){
+    for(var j = 0; j < image[i].length;j++){
+      var l = i-1
+      var m = j-1
+      l === -1 ? 0 : l
+      m === -1 ? 0 : m
+      
+
+
+      //Get the left brick color and apply it to the right brick
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      var rgbString = image[i][j]
+      var rgbNumbers = rgbStringToArray(rgbString);
+      filterFunction()
+      rgbString = rgbArrayToString(rgbNumbers)
+      image[i][j] =rgbString
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
