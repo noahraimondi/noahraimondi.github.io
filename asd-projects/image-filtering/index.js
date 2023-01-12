@@ -2,10 +2,10 @@
 // as soon as the page loads.
 $(document).ready(function () {
   render($("#display"), image);
-  $("#apply").on("click", applyAndRender);
+  $("#apply").on("click", applyAndRenderR);
+  $("#cover").on("click", applyAndRenderB);
+  $("#paste").on("click", applyAndRenderG);
   $("#reset").on("click", resetAndRender);
-  //Add more buttons ... hehehehe
-
 });
 
 /////////////////////////////////////////////////////////
@@ -20,12 +20,23 @@ function resetAndRender() {
 
 // this function applies the filters to the image and is where you should call
 // all of your apply functions
-function applyAndRender() {
-  // Multiple TODOs: Call your apply function(s) here
-  applyFilterOnlyBackground(reddify);
-  applyFilter(decreaseBlue);
-  applyFilterNoBackground(increaseGreenByBlue);
+function applyAndRenderR() {
+  applyBackground(reddify)
   
+  // do not change the below line of code
+  render($("#display"), image);
+}
+
+function applyAndRenderG() {
+  applyForeground(increaseGreenByBlue)
+
+  // do not change the below line of code
+  render($("#display"), image);
+}
+
+function applyAndRenderB() {
+  applyFilter(decreaseBlue)
+
   // do not change the below line of code
   render($("#display"), image);
 }
@@ -50,7 +61,7 @@ function applyFilter (filterFunction){
 }
 
 // TODO 7: Create the applyFilterNoBackground function
-function applyFilterNoBackground (filterFunction){
+function applyForeground (filterFunction){
   var backColor = image[0][0];
   for(var i = 0; i < image.length; i++){
     for(var j = 0; j < image[i].length;j++){
@@ -64,7 +75,7 @@ function applyFilterNoBackground (filterFunction){
   }
 }
 
-function applyFilterOnlyBackground (filterFunction){
+function applyBackground (filterFunction){
   var backColor = image[0][0];
   for(var i = 0; i < image.length; i++){
     for(var j = 0; j < image[i].length;j++){
@@ -100,7 +111,7 @@ function increaseGreenByBlue (arr){
   arr[GREEN] = keepInBounds(arr[GREEN] + arr[BLUE])
 }
 
-function smudgeLess (arr){
+function smudgeLess (alt, smu){
 
 }
 
@@ -118,7 +129,11 @@ function applySmudge (filterFunction){
 
       //Get the left brick color and apply it to the right brick
       
-
+      var rgbString = image[i][j]
+      var rgbNumbers = rgbStringToArray(rgbString);
+      filterFunction()
+      rgbString = rgbArrayToString(rgbNumbers)
+      image[i][j] =rgbString
 
 
 
