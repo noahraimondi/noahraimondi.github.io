@@ -11,10 +11,10 @@ function runProgram(){
   var FRAME_RATE = 60;
   var FRAMES_PER_SECOND_INTERVAL = 1000 / FRAME_RATE;
   var KEYW ={
-    "LEFT": 37,
-    "RIGHT": 39,
-    "UP": 38,
-    "DOWN": 40,
+    LEFT: 37,
+    RIGHT: 39,
+    UP: 38,
+    DOWN: 40,
   }
   var KEYA ={
     "LEFT": 65,
