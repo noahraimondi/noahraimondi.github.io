@@ -104,7 +104,7 @@ function runProgram(){
 
   function limitPosition (){
     if (walker.positionX +50 >= $("#board").width()){
-      walker.positionX = $("#board").width()-50;
+      walker.positionX = $("#board").width()-$("#walker").left();
     } else if (walker.positionX <= 0){
       walker.positionX = 0;
     }

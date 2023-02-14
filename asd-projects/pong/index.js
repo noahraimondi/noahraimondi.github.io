@@ -13,13 +13,9 @@ function runProgram(){
   
   const KEY = {
     W: 87,
-    A: 65,
     S: 83,
-    D: 68,
     C: 38,
     F: 12,
-    L: 37,
-    R: 39,
   }
 
   const BOARDWIDTH = $("#board").width()
@@ -38,8 +34,8 @@ function runProgram(){
     return item
   }
 
-  var paddleL = GameItem(10, 200, 0, 0, "#paddle1")
-  var paddleR = GameItem(BOARDWIDTH -$("#paddle1").width() -10, 200, 0, 0, "#paddle2")
+  var paddleL = GameItem(37, 200, 0, 0, "#paddle1")
+  var paddleR = GameItem(BOARDWIDTH -$("#paddle2").width() -37, 200, 0, 0, "#paddle2")
   var ball = GameItem(BOARDWIDTH/2, BOARDHEIGHT/2, (Math.random() > 0.5 ? -5: 5), (Math.random() > 0.5 ? -5: 5), "#ball" )
 
 
@@ -69,32 +65,33 @@ function runProgram(){
   /* 
   Called in response to events.
   */
+ 
   function handleKeyDown(event){
-
+    KeyResponse(event, KEY.W, KEY.S, paddleL.speY, 5)
   }
+
   function handleKeyUp(event){
+    KeyResponse(event, KEY.W, KEY.S, paddleL.speY, 0)
   }
   ////////////////////////////////////////////////////////////////////////////////
   ////////////////////////// HELPER FUNCTIONS ////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
-  function drawItem(itm){
-    $(itm.id).css("top", itm.y)
-    $(itm.id).css("left", itm.x)
-  }
+  
 
   function updateItem (itm){
-    itm.x = itm.x + itm.speX
-    itm.y = itm.y + itm.speY
+    itm.xPos = itm.xPos + itm.speX
+    itm.yPos = itm.yPos + itm.speY
   }
-  /*
-  var upL = KEY.W
-  function KeyResponse (event, keyUp, keyDown, posUp, posDown, speed){
-    //paddleL.yPos
-    (event.which === keyUp) ? posUp += speed: (event.which === keyDown) ? posDown -= speed : console.log("Nada")
-  }
-  */
 
-  
+  function drawItem(itm){
+      $(itm.id).css("top", itm.yPos)
+      $(itm.id).css("left", itm.xPos)
+    }
+
+  function KeyResponse (event, key1, key2, spe1, speed){
+    (event.which === key1) ? spe1 = +speed: (event.which === key2) ? spe1 = -speed: pos1 = pos1
+  }
+
   function endGame() {
     // stop the interval timer
     clearInterval(interval);
@@ -102,7 +99,6 @@ function runProgram(){
     // turn off event handlers
     $(document).off();
   }
-  
 }
 
 
@@ -124,12 +120,21 @@ function respondKeyDownA (event){
     }
 
 
-*/
+
 var upL = KEY.W
-function KeyResponse (event, keyUp, keyDown, posUp, posDown, speed){
+var posYL = paddleL.yPos
+function KeyResponse (event, keyUp, posUp, speed, key, s, posDR, y){
   //paddleL.yPos
-  (event.which === keyUp) ? posUp += speed: (event.which === keyDown) ? posDown -= speed : console.log("Nada")
+  key = {
+    s,
+  }
+  posDR = {
+    y,
+  }
+
+  (event.which === keyUp) ? posUp += speed: (event.which === key.s) ? posUp -= speed : console.log("Nada")
 }
+*/
 
 
 
