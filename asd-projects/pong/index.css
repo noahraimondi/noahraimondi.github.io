@@ -35,8 +35,28 @@ body {
   height: 15px;
   position: absolute;
   border-radius: 100%;
-  left: 850px; /* Uncomment if you want to set a "starting" position */   
+  /*left: 850px; /* Uncomment if you want to set a "starting" position */   
+  /*top: 100px; /* Uncomment if you want to set a "starting" position */
+}
+
+#score1 {
+  background-color: rgb(158, 70, 70);
+  width: 150px;
+  height: 40px;
+  position: absolute;
+  -moz-text-size-adjust: 50%;
+  left: 100px; /* Uncomment if you want to set a "starting" position */   
   top: 100px; /* Uncomment if you want to set a "starting" position */
 }
+
+#score2 {
+  background-color: rgb(70, 70, 158);
+  width: 150px;
+  height: 40px;
+  position: absolute;
+  left: 271px; /* Uncomment if you want to set a "starting" position */   
+  top: 100px; /* Uncomment if you want to set a "starting" position */
+}
+
 
 

@@ -67,29 +67,29 @@ function runProgram(){
   */
  
   function handleKeyDown(event){
-    KeyResponse(event, KEY.W, KEY.S, paddleL.speY, 5)
+    KeyResponse(event, KEY.S, KEY.W, paddleL, 5)
   }
 
   function handleKeyUp(event){
-    KeyResponse(event, KEY.W, KEY.S, paddleL.speY, 0)
+    KeyResponse(event, KEY.S, KEY.W, paddleL, 0)
   }
   ////////////////////////////////////////////////////////////////////////////////
   ////////////////////////// HELPER FUNCTIONS ////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
   
 
-  function updateItem (itm){
+  function updateItem (itm){//Updates current position of the inputted factor
     itm.xPos = itm.xPos + itm.speX
     itm.yPos = itm.yPos + itm.speY
   }
 
-  function drawItem(itm){
+  function drawItem(itm){ //Displays current position of the inputted factor
       $(itm.id).css("top", itm.yPos)
       $(itm.id).css("left", itm.xPos)
-    }
-
-  function KeyResponse (event, key1, key2, spe1, speed){
-    (event.which === key1) ? spe1 = +speed: (event.which === key2) ? spe1 = -speed: pos1 = pos1
+  }
+  
+  function KeyResponse (event, key1, key2, spe1, speed){ //Allows the inputted factor to move
+    (event.which === key1) ? spe1.speY += speed: (event.which === key2) ? spe1.speY -= speed: spe1.speY = 0;
   }
 
   function endGame() {
@@ -99,47 +99,36 @@ function runProgram(){
     // turn off event handlers
     $(document).off();
   }
-}
 
-
-/*
-function respondKeyDownA (event){
-      if(event.which === KEYA.DOWN){
-        console.log("Down pressed"); 
-        agatha.speedY = +5;
-      } else if(event.which === KEYA.LEFT){
-        agatha.speedX = -5;
-        console.log("Left pressed");
-      } else if(event.which === KEYA.RIGHT){
-        agatha.speedX = +5;
-        console.log("Right pressed");
-      } else if(event.which === KEYA.UP){
-        agatha.speedY = -5;
-        console.log("Up pressed");
-      }
+  function limitPosition (){
+    if (walker.positionX +50 >= $("#board").width()){
+      walker.positionX = $("#board").width()-$("#walker").left();
+    } else if (walker.positionX <= 0){
+      walker.positionX = 0;
     }
-
-
-
-var upL = KEY.W
-var posYL = paddleL.yPos
-function KeyResponse (event, keyUp, posUp, speed, key, s, posDR, y){
-  //paddleL.yPos
-  key = {
-    s,
-  }
-  posDR = {
-    y,
+    if (walker.positionY +50 >= $("#board").height()){
+      walker.positionY = $("#board").height()-50;
+    } else if (walker.positionY <= 0){
+      walker.positionY = 0;
+    }
   }
 
-  (event.which === keyUp) ? posUp += speed: (event.which === key.s) ? posUp -= speed : console.log("Nada")
+  function PaddleBorder (key1, key2, spe1, speed){
+    // Code from KeyResponse (event.which === key1) ? spe1.speY += speed: (event.which === key2) ? spe1.speY -= speed: spe1.speY = 0;
+    (key1.xPos >= key2.wid) ? key1.xPos = key2.wid - key1.xPos : key1.xPos = key1.xPos
+    (key1.wid <= key2.xPos) ? key1.wid = key2.xPos - key1.wid : key1.wid = key1.wid
+    (key1.yPos >= key2.hei) ? key1.yPos = key2.wid - key1.yPos : key1.yPos = key1.yPos
+    (key1.hei <= key2.yPos) ? key1.xPos = key2.wid - key1.xPos : key1.xPos = key1.xPos
+  }
+
+
+
+
+
+
+
+
 }
-*/
-
-
-
-
-
 /* function that checks the bounderies of the walls for the ball
     ball doen't bounce but it awards a point to the other player
     ball resests in the middle
