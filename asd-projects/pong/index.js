@@ -15,7 +15,7 @@ function runProgram(){
     W: 87,
     S: 83,
     C: 38,
-    F: 12,
+    F: 40,
   }
 
   const BOARDWIDTH = $("#board").width()
@@ -47,7 +47,12 @@ function runProgram(){
   ////////////////////////////////////////////////////////////////////////////////
   ///////////////////////// CORE LOGIC ///////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
+  
+  PaddleBorder(paddleL, ball)// Sets up the paddle as a solid object for the ball to bounce off of
+  PaddleBorder(paddleR, ball)
 
+  SetYBorder(ball)
+  
   /* 
   On each "tick" of the timer, a new frame is dynamically drawn using JavaScript
   by calling this function and executing the code inside.
@@ -67,11 +72,12 @@ function runProgram(){
   */
  
   function handleKeyDown(event){
-    KeyResponse(event, KEY.S, KEY.W, paddleL, 5)
+    KeyResponse(event, KEY.S, KEY.W, paddleL, 3.5)
+    KeyResponse(event, KEY.F, KEY.C, paddleR, 5)
   }
 
   function handleKeyUp(event){
-    KeyResponse(event, KEY.S, KEY.W, paddleL, 0)
+    //KeyResponse(event, KEY.S, KEY.W, paddleL, 0)
   }
   ////////////////////////////////////////////////////////////////////////////////
   ////////////////////////// HELPER FUNCTIONS ////////////////////////////////////
@@ -100,6 +106,7 @@ function runProgram(){
     $(document).off();
   }
 
+  /*
   function limitPosition (){
     if (walker.positionX +50 >= $("#board").width()){
       walker.positionX = $("#board").width()-$("#walker").left();
@@ -112,19 +119,43 @@ function runProgram(){
       walker.positionY = 0;
     }
   }
+  */
 
-  function PaddleBorder (key1, key2, spe1, speed){
-    // Code from KeyResponse (event.which === key1) ? spe1.speY += speed: (event.which === key2) ? spe1.speY -= speed: spe1.speY = 0;
-    (key1.xPos >= key2.wid) ? key1.xPos = key2.wid - key1.xPos : key1.xPos = key1.xPos
-    (key1.wid <= key2.xPos) ? key1.wid = key2.xPos - key1.wid : key1.wid = key1.wid
-    (key1.yPos >= key2.hei) ? key1.yPos = key2.wid - key1.yPos : key1.yPos = key1.yPos
-    (key1.hei <= key2.yPos) ? key1.xPos = key2.wid - key1.xPos : key1.xPos = key1.xPos
+  function PaddleBorder (key1, key2){ //Reverses the speed of x when x hits y
+    (key2.wid >= key1.xPos) ? key2.speX = -key2.speX :
+    (key2.yPos >= key1.hei) ? key2.speY = -key2.speY : key2.speY =key2.speY
+    (key2.wid >= key1.xPos) ? key2.speX = -key2.speX :
+    (key2.xPos >= key1.wid) ? key2.speY = -key2.speY : key2.speY =key2.speY
   }
 
+  function SetBorderY (key1){
+    (key1.hei >= $("#board").height()) ? key1.speY = -key1.speY :
+                      (key1.yPos <= 0) ? key1.speY = -key1.speY : key1.speY = key1.speY
+  }
 
+  function SetYBorder (key){
+    if (key.posY === 0) {
+      key.speY = -key.speY
+    }
+    if (key.hei === BOARDHEIGHT) {
+      key.speY = -key.speY
+    }
+    /*
+    if (positionX >= BOARDWIDTH-65) {
+      speedX = -speedX
+    }
+    else if (positionX < 0) {
+      speedX = -speedX
+    }
 
-
-
+    if ((square1.rightX > square2.leftX) && (square1.leftX < square2.rightX) &&
+        (square1.topY < square2.bottomY) && (square1.bottomY > square2.topY)){
+      return true;
+    } else {
+      return false
+    }
+    */
+  }
 
 
 
