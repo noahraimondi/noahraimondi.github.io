@@ -6,8 +6,8 @@ body {
 #board {
   width: 925px;
   height: 450px;
-  border: 1px solid white;
-  background-color: black;
+  border: 5px solid rgb(12, 12, 12);
+  background-color: rgb(134, 134, 134);
   position: relative;
 }
 
@@ -30,32 +30,34 @@ body {
 }
 
 #ball {
-  background-color: rgb(179, 179, 179);
-  width: 15px;
-  height: 15px;
+  background-color: rgb(236, 178, 69);
+  /*background-color: rgb(231, 161, 30);  background-color: rgb(255, 255, 255);*/
+  width: 12.5px;
+  height: 12.5px;
   position: absolute;
   border-radius: 100%;
-  /*left: 850px; /* Uncomment if you want to set a "starting" position */   
-  /*top: 100px; /* Uncomment if you want to set a "starting" position */
+  left: 462.5px; /* Uncomment if you want to set a "starting" position */   
+  top: 255px; /* Uncomment if you want to set a "starting" position */
 }
 
 #score1 {
-  background-color: rgb(158, 70, 70);
-  width: 150px;
-  height: 40px;
+  background-color: rgb(230, 70, 70);
+  font-family: monospace;
+  width: 145px;
+  height: 29px;
   position: absolute;
-  -moz-text-size-adjust: 50%;
-  left: 100px; /* Uncomment if you want to set a "starting" position */   
-  top: 100px; /* Uncomment if you want to set a "starting" position */
+  left: 5px; /* Uncomment if you want to set a "starting" position */   
+  top: 5px; /* Uncomment if you want to set a "starting" position */
 }
 
 #score2 {
-  background-color: rgb(70, 70, 158);
-  width: 150px;
-  height: 40px;
+  background-color: rgb(70, 70, 180);
+  font-family: monospace;
+  width: 145px;
+  height: 29px;
   position: absolute;
-  left: 271px; /* Uncomment if you want to set a "starting" position */   
-  top: 100px; /* Uncomment if you want to set a "starting" position */
+  left: 775px; /* Uncomment if you want to set a "starting" position */   
+  top: 5px; /* Uncomment if you want to set a "starting" position */
 }
 
 
