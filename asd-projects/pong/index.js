@@ -16,12 +16,25 @@ function runProgram(){
     S: 83,
     C: 38,
     F: 40,
-    S: 32,
+    B: 32,
   }
 
   const BOARDWIDTH = $("#board").width()
   const BOARDHEIGHT = $("#board").height()
   // Game Item Objects
+
+  //var spam = Math.random() > 0.5 ? -3 : 3
+
+    /*
+  function spam (event){
+    if (event.which === KEY.B){
+      Math.random() > 0.5 ? -3 : 3
+    } else{
+      0
+    }
+  }
+  */
+
   function GameItem (x, y, speedX, speedY, id){
     var item = {
       xPos: x,
@@ -38,8 +51,6 @@ function runProgram(){
   var paddleL = GameItem(37, 200, 0, 0, "#paddle1")
   var paddleR = GameItem(BOARDWIDTH -$("#paddle2").width() -37, 200, 0, 0, "#paddle2")
   var ball = GameItem(BOARDWIDTH/2, BOARDHEIGHT/2, 0, 0, "#ball" )
-
-
 
   // one-time setup
   let interval = setInterval(newFrame, FRAMES_PER_SECOND_INTERVAL);   // execute newFrame every 0.0166 seconds (60 Frames per second)
@@ -62,12 +73,12 @@ function runProgram(){
     updateItem(paddleR)
     updateItem(ball)
 
-    PaddleBorder(paddleL, ball)// Sets up the paddle as a solid object for the ball to bounce off of
-    PaddleBorder(paddleR, ball)
+    //PaddleBorder(paddleL, ball)// Sets up the paddle as a solid object for the ball to bounce off of
+    //PaddleBorder(paddleR, ball)
 
     ballBorder(ball)
-    //SetYBorder(paddleL)
-    //SetYBorder(paddleR)
+
+    PaddleBorder (paddleL, ball)
   }
   
   /* 
@@ -77,10 +88,11 @@ function runProgram(){
   function handleKeyDown(event){
     KeyResponse(event, KEY.S, KEY.W, paddleL, 3.5)
     KeyResponse(event, KEY.F, KEY.C, paddleR, 5)
+    ballStart(event, KEY.B)
+    ballStart (event, KEY.B)
   }
 
-  function handleKeyUp(event){
-    //KeyResponse(event, KEY.S, KEY.W, paddleL, 0)
+  function handleKeyUp(event){// Not used due to how the code is set
   }
   ////////////////////////////////////////////////////////////////////////////////
   ////////////////////////// HELPER FUNCTIONS ////////////////////////////////////
@@ -102,11 +114,24 @@ function runProgram(){
     (event.which === key1) ? spe1.speY += speed: (event.which === key2) ? spe1.speY -= speed: spe1.speY = 0;
   }
 
-  function ballStart (event, key, speed){
-    (event.which === key1) ? spe1.speY += speed: (event.which === key2) ? spe1.speY -= speed: spe1.speY = 0;
+  function ballStart (event, key){
+    var speed = (Math.random() > 0.5) ? -3 : 3
+    if (event.which === key){
+      key.speY = Math.random() > 0.5 ? -3 : 3;
+      key.speX = (Math.random() > 0.5) ? -3 : 3;
+    }
+    
+    
+    //(event.which === key) ? (key.speY = speed) (key.speY = speed)  : 0
   }
 
   function PaddleBorder (key1, key2){ //Reverses the speed of x when x hits y
+    if (key1.yPos == key2.yPos -12) {
+      key1.speY = -key1.speY
+    }
+    if (key1.yPos -12 == key2.yPos) {
+      key1.speY = -key1.speY
+    }
   }
 
   function ballBorder (key){
