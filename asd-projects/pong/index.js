@@ -38,15 +38,15 @@ function runProgram(){
   function GameItem (x, y, speedX, speedY, id){
     var item = {
       xPos: x,
-      rPos: x + parseFloat($(id).width()),
       yPos: y,
-      bPos: y + parseFloat($(id).height()),
       speX: speedX,
       speY: speedY,
       hei: $(id).height(),
       wid: $(id).width(),
       id : id,
     }
+    item.rPos = item.xPos + $(id).width()
+    item.bPos = item.yPos + $(id).height()
     return item
   }
 
@@ -77,12 +77,8 @@ function runProgram(){
     updateItem(ball)
 
     ballBorder(ball)
-    ballBorder(paddleL)
-    ballBorder(paddleR)
     
-    PaddleBorder (paddleL, ball)
-
-    //bordBorder(paddleL)
+    paddle()
   }
   
   /* 
@@ -122,14 +118,50 @@ function runProgram(){
     }
   }
 
-
   function paddle (){
-    if (ball.xPos <= paddleL.xPos + paddleL.wid ){
+    if (doCollideX(paddleL, ball)){
       ball.speX = -ball.speX
+      ballChange(0.5)
+      console.log("hit")
+    }
+    if (doCollideX(paddleR, ball)){
+      ball.speX = -ball.speX
+      ballChange(0.5)
     }
   }
 
+  function doCollideX (obj1, obj2){ 
+    obj1.leftX = obj1.xPos;
+    obj1.topY = obj1.yPos;
+    obj1.rightX = obj1.xPos +$(obj1.id).width();
+    obj1.bottomY = obj1.yPos +$(obj1.id).height();
+  
+    obj2.leftX = obj2.xPos;
+    obj2.topY = obj2.yPos;
+    obj2.rightX = obj2.xPos +$(obj2.id).width();
+    obj2.bottomY = obj2.yPos +$(obj2.id).height();
+  
+    if ((obj1.rightX > obj2.leftX) && (obj1.leftX < obj2.rightX) &&
+        (obj1.topY < obj2.bottomY) && (obj1.bottomY > obj2.topY)){
+      return true;
+    } else {
+      return false
+    }  
+  }
 
+  function ballChange(speed){
+    if ((ball.speX * -1) > 0){
+      ball.speX += -speed
+    } else{
+      ball.speX += speed
+    }
+    
+    if ((ball.speY * -1) > 0){
+      ball.speY += -speed
+    } else{
+      ball.speY += speed
+    }
+  }
 
 
 
@@ -161,7 +193,6 @@ function runProgram(){
   function endGame() {
     // stop the interval timer
     clearInterval(interval);
-
     // turn off event handlers
     $(document).off();
   }
