@@ -43,7 +43,7 @@ body {
 #score1 {
   background-color: rgb(230, 70, 70);
   font-family: monospace;
-  width: 145px;
+  width: 155px;
   height: 29px;
   position: absolute;
   left: 5px; /* Uncomment if you want to set a "starting" position */   
@@ -53,12 +53,29 @@ body {
 #score2 {
   background-color: rgb(70, 70, 180);
   font-family: monospace;
-  width: 145px;
+  width: 155px;
   height: 29px;
   position: absolute;
-  left: 775px; /* Uncomment if you want to set a "starting" position */   
+  left: 765px; /* Uncomment if you want to set a "starting" position */   
   top: 5px; /* Uncomment if you want to set a "starting" position */
 }
 
+#goal {
+  background-color: rgb(233, 235, 116);
+  font-family: monospace;
+  width: 98px;
+  height: 24px;
+  position: absolute;
+  left: 400px; /* Uncomment if you want to set a "starting" position */   
+  top: 5px; /* Uncomment if you want to set a "starting" position */
+}
 
+#end {
+  font-family: monospace;
+  width: 673px;
+  height: 82px;
+  position: absolute;
+  left: 105px; /* Uncomment if you want to set a "starting" position */   
+  top: 215px; /* Uncomment if you want to set a "starting" position */
+}
 

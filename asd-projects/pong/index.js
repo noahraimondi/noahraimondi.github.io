@@ -51,7 +51,7 @@ function runProgram(){
   }
 
   var paddleL = GameItem(37, 200, 0, 0, "#paddle1")
-  var paddleR = GameItem(BOARDWIDTH -$("#paddle2").width() -37, 200, 0, 0, "#paddle2")
+  var paddleR = GameItem(BOARDWIDTH -$("#paddle2").width() -100, 200, 0, 0, "#paddle2")
   var ball = GameItem(BOARDWIDTH/2, BOARDHEIGHT/2, Math.random() > 0.5 ? -3 : 3, Math.random() > 0.5 ? -3 : 3, "#ball" )
 
   // one-time setup
@@ -75,10 +75,17 @@ function runProgram(){
     updateItem(paddleL)
     updateItem(paddleR)
     updateItem(ball)
+    // Prevents the ball from going through the paddle
+    paddle()//Needs a helper function for the y axis
+    //Prevents the objects from passing the y-axis walls
+    setBoundaryY(ball, ball)
+    setBoundaryY(paddleL, paddle)
+    setBoundaryY(paddleR, paddle)
 
-    ballBorder(ball)
-    
-    paddle()
+    //$("#goal").text("Goal:30")
+
+    $("#score1").text("Player 1:" + scoreSet("left"))
+    $("#score2").text("Player 2:" + scoreSet("right"))
   }
   
   /* 
@@ -119,18 +126,18 @@ function runProgram(){
   }
 
   function paddle (){
-    if (doCollideX(paddleL, ball)){
+    if (doCollide(paddleL, ball)){
       ball.speX = -ball.speX
       ballChange(0.5)
       console.log("hit")
     }
-    if (doCollideX(paddleR, ball)){
+    if (doCollide(paddleR, ball)){
       ball.speX = -ball.speX
       ballChange(0.5)
     }
   }
 
-  function doCollideX (obj1, obj2){ 
+  function doCollide  (obj1, obj2){ 
     obj1.leftX = obj1.xPos;
     obj1.topY = obj1.yPos;
     obj1.rightX = obj1.xPos +$(obj1.id).width();
@@ -155,7 +162,6 @@ function runProgram(){
     } else{
       ball.speX += speed
     }
-    
     if ((ball.speY * -1) > 0){
       ball.speY += -speed
     } else{
@@ -163,34 +169,63 @@ function runProgram(){
     }
   }
 
-
-
-
-  function PaddleBorder (key1, key2){ //Reverses the speed of x when x hits y
-    if (key1.yPos == key2.yPos -12) {
-      key1.speY = -key1.speY
+  function setBoundaryY (obj, key){
+    obj.topY = obj.yPos;
+    obj.bottomY = obj.yPos +$(obj.id).height();
+    
+    if (key == paddle){
+      if (obj.topY < 0){
+        obj.speY = 0
+      }
+      if (obj.bottomY > BOARDHEIGHT){
+        obj.speY = 0
+      }
     }
-    if (key1.yPos -12 == key2.yPos) {
-      key1.speY = -key1.speY
-    }
-  }
-
-  function ballBorder (key){
-    if (key.yPos == 0) {
-      key.speY = -key.speY
-    }
-    if (key.yPos == BOARDHEIGHT) {
-      key.speY = -key.speY
-    }
-    if (key.xPos == 0) {
-      key.speX = -key.speX
-    }
-    if (key.xPos == BOARDWIDTH) {
-      key.speX = -key.speX
+    if (key == ball){
+      if (obj.topY < 0){
+        obj.speY = -obj.speY
+      }
+      if (obj.bottomY > BOARDHEIGHT){
+        obj.speY = -obj.speY
+      }
     }
   }
 
-  function endGame() {
+  function scoreSet (key){
+    ball.leftX = ball.xPos;
+    ball.rightX = ball.xPos +$(ball.id).width();
+    val = 0
+    if (ball.leftX < 1 && key == "left"){
+      val -= 1
+    }else if(ball.leftX < 1 && key == "right"){
+      val += 2
+    } else if (ball.rightX > BOARDWIDTH-1 && key == "left"){
+      val += 2
+    } else if (ball.right > BOARDWIDTH-1 && key == "right"){
+      val -=1
+    }
+    if (val < 0){
+      val = 0
+    } else if (val == 30 && key == "right"){
+      winEventR()
+    } else if (val == 30 && key == "left"){
+      winEventL
+    }
+    return val
+  }
+
+  function endCondition (){
+
+  }
+  function winEventL (){
+    $("#end").text("Player 1 Wins!!!")
+    endGame()
+  }
+  function winEventR (){
+    $("#end").text("Player 2 Wins!!!")
+    endGame()
+  }
+  function endGame (){
     // stop the interval timer
     clearInterval(interval);
     // turn off event handlers
