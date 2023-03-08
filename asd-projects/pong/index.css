@@ -25,7 +25,7 @@ body {
   width: 12px;
   height: 100px;
   position: absolute;
-  left: 850px; /* Uncomment if you want to set a "starting" position */   
+  left: 880px; /* Uncomment if you want to set a "starting" position */   
   top: 100px; /* Uncomment if you want to set a "starting" position */
 }
 

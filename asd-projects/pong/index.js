@@ -51,7 +51,7 @@ function runProgram(){
   }
 
   var paddleL = GameItem(37, 200, 0, 0, "#paddle1")
-  var paddleR = GameItem(BOARDWIDTH -$("#paddle2").width() -100, 200, 0, 0, "#paddle2")
+  var paddleR = GameItem(BOARDWIDTH -$("#paddle2").width() -37, 200, 0, 0, "#paddle2")
   var ball = GameItem(BOARDWIDTH/2, BOARDHEIGHT/2, Math.random() > 0.5 ? -3 : 3, Math.random() > 0.5 ? -3 : 3, "#ball" )
 
   // one-time setup
@@ -67,25 +67,28 @@ function runProgram(){
   by calling this function and executing the code inside.
   */
   function newFrame() {
-    //Renders the object
+      //Renders the object
     drawItem(paddleL)
     drawItem(paddleR)
     drawItem(ball)
-    //Updates the position based on speed
+      //Updates the position based on speed
     updateItem(paddleL)
     updateItem(paddleR)
     updateItem(ball)
-    // Prevents the ball from going through the paddle
-    paddle()//Needs a helper function for the y axis
-    //Prevents the objects from passing the y-axis walls
+      //Prevents the ball from going through the paddle
+    paddle()//Needs a helper function for the y-axis
+      //Prevents the objects from passing the y-axis walls
     setBoundaryY(ball, ball)
     setBoundaryY(paddleL, paddle)
     setBoundaryY(paddleR, paddle)
-
-    //$("#goal").text("Goal:30")
-
+      //Sets up the scoring system
     $("#score1").text("Player 1:" + scoreSet("left"))
     $("#score2").text("Player 2:" + scoreSet("right"))
+      //Resests the ball after point is scored
+    afterScore()
+      //What happens when the player gets to the needed points
+    endCondition("left")
+    endCondition("right")
   }
   
   /* 
@@ -190,7 +193,7 @@ function runProgram(){
       }
     }
   }
-
+  
   function scoreSet (key){
     ball.leftX = ball.xPos;
     ball.rightX = ball.xPos +$(ball.id).width();
@@ -201,28 +204,40 @@ function runProgram(){
       val += 2
     } else if (ball.rightX > BOARDWIDTH-1 && key == "left"){
       val += 2
-    } else if (ball.right > BOARDWIDTH-1 && key == "right"){
-      val -=1
+    } else if (ball.rightX > BOARDWIDTH-1 && key == "right"){
+      val -= 1
     }
     if (val < 0){
       val = 0
-    } else if (val == 30 && key == "right"){
-      winEventR()
-    } else if (val == 30 && key == "left"){
-      winEventL
     }
     return val
   }
 
-  function endCondition (){
+  function afterScore (){
+    ball.leftX = ball.xPos;
+    ball.rightX = ball.xPos +$(ball.id).width();
+    if (ball.xPos < 1){
+      ball.speX = Math.random() > 0.5 ? -3 : 3
+      ball.speY = Math.random() > 0.5 ? -3 : 3
+      ball.xPos = BOARDWIDTH/2
+      ball.yPos = BOARDHEIGHT/2
+    } else if (ball.xPos > BOARDWIDTH-1){
+      ball.speX = Math.random() > 0.5 ? -3 : 3
+      ball.speY = Math.random() > 0.5 ? -3 : 3
+      ball.xPos = BOARDWIDTH/2
+      ball.yPos = BOARDHEIGHT/2
+    }
+  }
 
+  function endCondition (key){//What is needed to win
+    if (val == 30 && key == "right"){
+      winEvent("1")
+    } else if (val == 30 && key == "left"){
+      winEvent("2")
+    }
   }
-  function winEventL (){
-    $("#end").text("Player 1 Wins!!!")
-    endGame()
-  }
-  function winEventR (){
-    $("#end").text("Player 2 Wins!!!")
+  function winEvent (num){//Effect of winning the game
+    $("#end").text("Player " + num + " Wins!!!")
     endGame()
   }
   function endGame (){
@@ -232,6 +247,8 @@ function runProgram(){
     $(document).off();
   }
 }
+
+
 
 /* function that checks the bounderies of the walls for the ball
     ball doen't bounce but it awards a point to the other player
