@@ -22,20 +22,7 @@ function runProgram(){
   const BOARDWIDTH = $("#board").width()
   const BOARDHEIGHT = $("#board").height()
   // Game Item Objects
-
-  //var spam = Math.random() > 0.5 ? -3 : 3
-
-    /*
-  function spam (event){
-    if (event.which === KEY.B){
-      Math.random() > 0.5 ? -3 : 3
-    } else{
-      0
-    }
-  }
-  */
-
-  function GameItem (x, y, speedX, speedY, id){
+  function GameItem (x, y, speedX, speedY, id){//Sets up
     var item = {
       xPos: x,
       yPos: y,
@@ -52,7 +39,9 @@ function runProgram(){
 
   var paddleL = GameItem(37, 200, 0, 0, "#paddle1")
   var paddleR = GameItem(BOARDWIDTH -$("#paddle2").width() -37, 200, 0, 0, "#paddle2")
-  var ball = GameItem(BOARDWIDTH/2, BOARDHEIGHT/2, Math.random() > 0.5 ? -3 : 3, Math.random() > 0.5 ? -3 : 3, "#ball" )
+  var ball = GameItem(BOARDWIDTH/2, BOARDHEIGHT/2, Math.random() > 0.5 ? -3 : 3, Math.random() > 0.5 ? -3 : 3, "#ball")
+  var scoreL = 0
+  var scoreR = 0
 
   // one-time setup
   let interval = setInterval(newFrame, FRAMES_PER_SECOND_INTERVAL);   // execute newFrame every 0.0166 seconds (60 Frames per second)
@@ -66,7 +55,7 @@ function runProgram(){
   On each "tick" of the timer, a new frame is dynamically drawn using JavaScript
   by calling this function and executing the code inside.
   */
-  function newFrame() {
+  function newFrame() {//
       //Renders the object
     drawItem(paddleL)
     drawItem(paddleR)
@@ -81,66 +70,54 @@ function runProgram(){
     setBoundaryY(ball, ball)
     setBoundaryY(paddleL, paddle)
     setBoundaryY(paddleR, paddle)
-      //Sets up the scoring system
-    $("#score1").text("Player 1:" + scoreSet("left"))
-    $("#score2").text("Player 2:" + scoreSet("right"))
-      //Resests the ball after point is scored
-    afterScore()
-      //What happens when the player gets to the needed points
-    endCondition("left")
-    endCondition("right")
-  }
+      //What happens when a player gets to the needed points
+    endCondition()
+      //Updates the score counter for the set player
+    scoreSet()
+    scoreDraw()
+    }
   
   /* 
   Called in response to events.
   */
  
-  function handleKeyDown(event){
+  function handleKeyDown(event){//Responds too any key that is pushed
     KeyResponse(event, KEY.S, KEY.W, paddleL, 3.5)
     KeyResponse(event, KEY.F, KEY.C, paddleR, 3.5)
-    ballStart(event, KEY.B)
-    ballStart (event, KEY.B)
   }
 
-  function handleKeyUp(event){// Not used due to how the code is set
-  }
+  function handleKeyUp(event){}// Not used due to how the code is set
+  
   ////////////////////////////////////////////////////////////////////////////////
   ////////////////////////// HELPER FUNCTIONS ////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
+  ///// Item Position Setup /////
   function updateItem (itm){//Updates current position of the inputted factor
     itm.xPos = itm.xPos + itm.speX
     itm.yPos = itm.yPos + itm.speY
   }
-
   function drawItem(itm){ //Displays current position of the inputted factor
       $(itm.id).css("top", itm.yPos)
       $(itm.id).css("left", itm.xPos)
   }
-  
+
+  ///// Key Press Setup /////
   function KeyResponse (event, key1, key2, spe1, speed){ //Allows the inputted factor to move
     (event.which === key1) ? spe1.speY += speed: (event.which === key2) ? spe1.speY -= speed: spe1.speY = 0;
   }
 
-  function ballStart (event, key){
-    if (event.which === key){
-      key.speY = Math.random() > 0.5 ? -3 : 3;
-      key.speX = (Math.random() > 0.5) ? -3 : 3;
-    }
-  }
-
-  function paddle (){
+  ///// Speed Collision Setup /////
+  function paddle (){//Sets up the paddle to reflect the ball when hit
     if (doCollide(paddleL, ball)){
       ball.speX = -ball.speX
       ballChange(0.5)
-      console.log("hit")
     }
     if (doCollide(paddleR, ball)){
       ball.speX = -ball.speX
       ballChange(0.5)
     }
   }
-
-  function doCollide  (obj1, obj2){ 
+  function doCollide  (obj1, obj2){//Returns true or false if obj1 has or hasn't intersected obj2
     obj1.leftX = obj1.xPos;
     obj1.topY = obj1.yPos;
     obj1.rightX = obj1.xPos +$(obj1.id).width();
@@ -158,8 +135,7 @@ function runProgram(){
       return false
     }  
   }
-
-  function ballChange(speed){
+  function ballChange(speed){// adds speed based around whether the speed is negative or positive
     if ((ball.speX * -1) > 0){
       ball.speX += -speed
     } else{
@@ -171,12 +147,11 @@ function runProgram(){
       ball.speY += speed
     }
   }
-
-  function setBoundaryY (obj, key){
+  function setBoundaryY (obj, key){//Determines how the object reacts to the top and bottom walls
     obj.topY = obj.yPos;
-    obj.bottomY = obj.yPos +$(obj.id).height();
+    obj.bottomY = obj.yPos + $(obj.id).height();
     
-    if (key == paddle){
+    if (key == paddle){//Made to stop at the wall
       if (obj.topY < 0){
         obj.speY = 0
       }
@@ -184,7 +159,7 @@ function runProgram(){
         obj.speY = 0
       }
     }
-    if (key == ball){
+    if (key == ball){//Made to reverse the speed of the object
       if (obj.topY < 0){
         obj.speY = -obj.speY
       }
@@ -193,46 +168,40 @@ function runProgram(){
       }
     }
   }
-  
-  function scoreSet (key){
-    ball.leftX = ball.xPos;
-    ball.rightX = ball.xPos +$(ball.id).width();
-    val = 0
-    if (ball.leftX < 1 && key == "left"){
-      val -= 1
-    }else if(ball.leftX < 1 && key == "right"){
-      val += 2
-    } else if (ball.rightX > BOARDWIDTH-1 && key == "left"){
-      val += 2
-    } else if (ball.rightX > BOARDWIDTH-1 && key == "right"){
-      val -= 1
-    }
-    if (val < 0){
-      val = 0
-    }
-    return val
-  }
 
-  function afterScore (){
+  ///// Point System Setup /////
+  function scoreSet (){//Sets up how points are scored
     ball.leftX = ball.xPos;
-    ball.rightX = ball.xPos +$(ball.id).width();
-    if (ball.xPos < 1){
-      ball.speX = Math.random() > 0.5 ? -3 : 3
-      ball.speY = Math.random() > 0.5 ? -3 : 3
-      ball.xPos = BOARDWIDTH/2
-      ball.yPos = BOARDHEIGHT/2
-    } else if (ball.xPos > BOARDWIDTH-1){
-      ball.speX = Math.random() > 0.5 ? -3 : 3
-      ball.speY = Math.random() > 0.5 ? -3 : 3
-      ball.xPos = BOARDWIDTH/2
-      ball.yPos = BOARDHEIGHT/2
+    ball.rightX = ball.xPos + $(ball.id).width();
+    if (ball.leftX < 0){
+      if (scoreL !== 0){
+        scoreL -= 1
+      }
+      scoreR = scoreR + 2
+      afterScore();
+    } else if (ball.rightX > BOARDWIDTH){
+      if (scoreR !== 0){
+        scoreR -= 1
+      }
+      scoreL = scoreL + 2
+      afterScore();
     }
   }
-
-  function endCondition (key){//What is needed to win
-    if (val == 30 && key == "right"){
+  function scoreDraw (){//Updates the scoring text
+    $("#score1").text("Player 1:" + scoreL)
+    $("#score2").text("Player 2:" + scoreR)
+  }
+  function afterScore (){//Resests the position of the ball
+    ball.speX = Math.random() > 0.5 ? -3 : 3
+    ball.speY = Math.random() > 0.5 ? -3 : 3
+    ball.xPos = BOARDWIDTH/2
+    ball.yPos = BOARDHEIGHT/2
+  }
+  function endCondition (){//What is needed to win
+    if (scoreL == 30){
       winEvent("1")
-    } else if (val == 30 && key == "left"){
+    }
+    if (scoreR == 30){
       winEvent("2")
     }
   }
@@ -240,6 +209,8 @@ function runProgram(){
     $("#end").text("Player " + num + " Wins!!!")
     endGame()
   }
+
+  ///// End The Game /////
   function endGame (){
     // stop the interval timer
     clearInterval(interval);
@@ -247,21 +218,3 @@ function runProgram(){
     $(document).off();
   }
 }
-
-
-
-/* function that checks the bounderies of the walls for the ball
-    ball doen't bounce but it awards a point to the other player
-    ball resests in the middle
-  function thatll check bounderies for paddle
-  function for player score
-  function score display
-  function for winner instance
-  function for play again button after winner is deterimened
-  do Collide function for when two objects have collided
-  KEY objects for the respective keys
-  function for change in ball speed when the paddle is hit
-  function to handle the result of the ball hitting the paddle
-    ball direction change
-    ball speed increase
-*/

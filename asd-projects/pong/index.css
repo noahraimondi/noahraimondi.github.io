@@ -66,7 +66,7 @@ body {
   width: 98px;
   height: 24px;
   position: absolute;
-  left: 400px; /* Uncomment if you want to set a "starting" position */   
+  left: 405px; /* Uncomment if you want to set a "starting" position */   
   top: 5px; /* Uncomment if you want to set a "starting" position */
 }
 
@@ -75,7 +75,7 @@ body {
   width: 673px;
   height: 82px;
   position: absolute;
-  left: 105px; /* Uncomment if you want to set a "starting" position */   
-  top: 215px; /* Uncomment if you want to set a "starting" position */
+  left: 160px; /* Uncomment if you want to set a "starting" position */   
+  top: 140px; /* Uncomment if you want to set a "starting" position */
 }
 
