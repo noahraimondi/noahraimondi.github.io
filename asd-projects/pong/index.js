@@ -32,21 +32,19 @@ function runProgram(){
       wid: $(id).width(),
       id : id,
     }
-    item.rPos = item.xPos + $(id).width()
-    item.bPos = item.yPos + $(id).height()
     return item
   }
-
+  // Variables
   var paddleL = GameItem(37, 200, 0, 0, "#paddle1")
   var paddleR = GameItem(BOARDWIDTH -$("#paddle2").width() -37, 200, 0, 0, "#paddle2")
   var ball = GameItem(BOARDWIDTH/2, BOARDHEIGHT/2, Math.random() > 0.5 ? -3 : 3, Math.random() > 0.5 ? -3 : 3, "#ball")
   var scoreL = 0
   var scoreR = 0
 
-  // one-time setup
+  // One-time setup
   let interval = setInterval(newFrame, FRAMES_PER_SECOND_INTERVAL);   // execute newFrame every 0.0166 seconds (60 Frames per second)
   $(document).on('keydown', handleKeyDown);                           // change 'eventType' to the type of event you want to handle
-  $(document).on('keyup', handleKeyUp);
+  //$(document).on('keyup', handleKeyUp);// Not Used
   ////////////////////////////////////////////////////////////////////////////////
   ///////////////////////// CORE LOGIC ///////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
@@ -55,27 +53,22 @@ function runProgram(){
   On each "tick" of the timer, a new frame is dynamically drawn using JavaScript
   by calling this function and executing the code inside.
   */
-  function newFrame() {//
-      //Renders the object
-    drawItem(paddleL)
-    drawItem(paddleR)
-    drawItem(ball)
-      //Updates the position based on speed
-    updateItem(paddleL)
-    updateItem(paddleR)
-    updateItem(ball)
+  function newFrame() {
+      //Renders the object and its motion
+    itemAction(ball)
+    itemAction(paddleL)
+    itemAction(paddleR)
       //Prevents the ball from going through the paddle
-    paddle()//Needs a helper function for the y-axis
+    paddle()
       //Prevents the objects from passing the y-axis walls
-    setBoundaryY(ball, ball)
-    setBoundaryY(paddleL, paddle)
-    setBoundaryY(paddleR, paddle)
+    setBoundaryY(ball, "ball")
+    setBoundaryY(paddleL, "paddle")
+    setBoundaryY(paddleR, "paddle")
+      //Updates the score counter for the players
+    scoreSystem()
       //What happens when a player gets to the needed points
     endCondition()
-      //Updates the score counter for the set player
-    scoreSet()
-    scoreDraw()
-    }
+  }
   
   /* 
   Called in response to events.
@@ -86,12 +79,16 @@ function runProgram(){
     KeyResponse(event, KEY.F, KEY.C, paddleR, 3.5)
   }
 
-  function handleKeyUp(event){}// Not used due to how the code is set
+  //function handleKeyUp(event){}// Not used due to how the code is set
   
   ////////////////////////////////////////////////////////////////////////////////
   ////////////////////////// HELPER FUNCTIONS ////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
   ///// Item Position Setup /////
+  function itemAction (itm){// Simplifies repetitive code
+    updateItem(itm)
+    drawItem(itm)
+  }
   function updateItem (itm){//Updates current position of the inputted factor
     itm.xPos = itm.xPos + itm.speX
     itm.yPos = itm.yPos + itm.speY
@@ -151,7 +148,7 @@ function runProgram(){
     obj.topY = obj.yPos;
     obj.bottomY = obj.yPos + $(obj.id).height();
     
-    if (key == paddle){//Made to stop at the wall
+    if (key == "paddle"){//Made to stop at the wall
       if (obj.topY < 0){
         obj.speY = 0
       }
@@ -159,7 +156,7 @@ function runProgram(){
         obj.speY = 0
       }
     }
-    if (key == ball){//Made to reverse the speed of the object
+    if (key == "ball"){//Made to reverse the speed of the object
       if (obj.topY < 0){
         obj.speY = -obj.speY
       }
@@ -170,6 +167,10 @@ function runProgram(){
   }
 
   ///// Point System Setup /////
+  function scoreSystem (){//Reduces repetitive code
+    scoreSet()
+    scoreDraw()
+  }
   function scoreSet (){//Sets up how points are scored
     ball.leftX = ball.xPos;
     ball.rightX = ball.xPos + $(ball.id).width();
@@ -197,6 +198,8 @@ function runProgram(){
     ball.xPos = BOARDWIDTH/2
     ball.yPos = BOARDHEIGHT/2
   }
+
+  ///// End The Game /////
   function endCondition (){//What is needed to win
     if (scoreL == 30){
       winEvent("1")
@@ -209,9 +212,7 @@ function runProgram(){
     $("#end").text("Player " + num + " Wins!!!")
     endGame()
   }
-
-  ///// End The Game /////
-  function endGame (){
+ function endGame (){//Ends the game
     // stop the interval timer
     clearInterval(interval);
     // turn off event handlers
