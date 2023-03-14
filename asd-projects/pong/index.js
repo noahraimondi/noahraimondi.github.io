@@ -73,12 +73,22 @@ function runProgram(){
   /* 
   Called in response to events.
   */
- 
   function handleKeyDown(event){//Responds too any key that is pushed
-    KeyResponse(event, KEY.S, KEY.W, paddleL, 3.5)
-    KeyResponse(event, KEY.F, KEY.C, paddleR, 3.5)
+    //KeyResponse(event, KEY.S, KEY.W, paddleL, 3.5)
+    //KeyResponse(event, KEY.F, KEY.C, paddleR, 3.5)
+    if (event.which === KEY.W){
+      paddleL.speY = -5; 
+    }
+    if (event.which === KEY.S){
+      paddleL.speY = 5;
+    };
+    if (event.which === KEY.C){
+      paddleR.speY = -5;
+    }
+    if (event.which === KEY.F){
+      paddleR.speY = 5;
+    }
   }
-
   //function handleKeyUp(event){}// Not used due to how the code is set
   
   ////////////////////////////////////////////////////////////////////////////////
@@ -101,7 +111,33 @@ function runProgram(){
   ///// Key Press Setup /////
   function KeyResponse (event, key1, key2, spe1, speed){ //Allows the inputted factor to move
     (event.which === key1) ? spe1.speY += speed: (event.which === key2) ? spe1.speY -= speed: spe1.speY = 0;
+    /*
+    (event.which === KEY.S) ? paddleL.speY += 1: 
+    (event.which === KEY.W) ? paddleL.speY -= 1: paddleL.speY = 0;
+    (event.which === KEY.F) ? paddleR.speY += 1: 
+    (event.which === KEY.C) ? paddleR.speY -= 1: paddleR.speY = 0;
+    */
   }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   ///// Speed Collision Setup /////
   function paddle (){//Sets up the paddle to reflect the ball when hit
@@ -151,9 +187,11 @@ function runProgram(){
     if (key == "paddle"){//Made to stop at the wall
       if (obj.topY < 0){
         obj.speY = 0
+        obj.yPos = 0
       }
       if (obj.bottomY > BOARDHEIGHT){
         obj.speY = 0
+        obj.yPos =  BOARDHEIGHT - obj.hei
       }
     }
     if (key == "ball"){//Made to reverse the speed of the object
