@@ -61,9 +61,9 @@ function runProgram(){
       //Prevents the ball from going through the paddle
     paddle()
       //Prevents the objects from passing the y-axis walls
-    setBoundaryY(ball, "ball")
-    setBoundaryY(paddleL, "paddle")
-    setBoundaryY(paddleR, "paddle")
+    setBoundaryY(ball)
+    setBoundaryY(paddleL)
+    setBoundaryY(paddleR)
       //Updates the score counter for the players
     scoreSystem()
       //What happens when a player gets to the needed points
@@ -74,20 +74,8 @@ function runProgram(){
   Called in response to events.
   */
   function handleKeyDown(event){//Responds too any key that is pushed
-    //KeyResponse(event, KEY.S, KEY.W, paddleL, 3.5)
-    //KeyResponse(event, KEY.F, KEY.C, paddleR, 3.5)
-    if (event.which === KEY.W){
-      paddleL.speY = -5; 
-    }
-    if (event.which === KEY.S){
-      paddleL.speY = 5;
-    };
-    if (event.which === KEY.C){
-      paddleR.speY = -5;
-    }
-    if (event.which === KEY.F){
-      paddleR.speY = 5;
-    }
+    KeyResponse(event, paddleL)
+    KeyResponse(event, paddleR)
   }
   //function handleKeyUp(event){}// Not used due to how the code is set
   
@@ -109,36 +97,24 @@ function runProgram(){
   }
 
   ///// Key Press Setup /////
-  function KeyResponse (event, key1, key2, spe1, speed){ //Allows the inputted factor to move
-    (event.which === key1) ? spe1.speY += speed: (event.which === key2) ? spe1.speY -= speed: spe1.speY = 0;
-    /*
-    (event.which === KEY.S) ? paddleL.speY += 1: 
-    (event.which === KEY.W) ? paddleL.speY -= 1: paddleL.speY = 0;
-    (event.which === KEY.F) ? paddleR.speY += 1: 
-    (event.which === KEY.C) ? paddleR.speY -= 1: paddleR.speY = 0;
-    */
+  function KeyResponse (event, key){ //Allows the inputted factor to move
+    //(event.which === key1) ? spe1.speY += speed: (event.which === key2) ? spe1.speY -= speed: spe1.speY = 0;
+    if (event.which === KEY.W && key == paddleL){
+      key.speY += -3.5; 
+    } else if (event.which === KEY.S && key == paddleL){
+      key.speY += 3.5;
+    } else if (event.which === KEY.C && key == paddleR){
+      key.speY += -3.5;
+    } else if (event.which === KEY.F && key == paddleR){
+      key.speY += 3.5;
+    }
+    if (key.speY > 10.5){
+      key.speY = 10.5
+    } else if (key.speY < -10.5){
+      key.speY = -10.5
+    }
   }
   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   ///// Speed Collision Setup /////
   function paddle (){//Sets up the paddle to reflect the ball when hit
     if (doCollide(paddleL, ball)){
@@ -168,7 +144,7 @@ function runProgram(){
       return false
     }  
   }
-  function ballChange(speed){// adds speed based around whether the speed is negative or positive
+  function ballChange (speed){// adds speed based around whether the speed is negative or positive
     if ((ball.speX * -1) > 0){
       ball.speX += -speed
     } else{
@@ -180,11 +156,11 @@ function runProgram(){
       ball.speY += speed
     }
   }
-  function setBoundaryY (obj, key){//Determines how the object reacts to the top and bottom walls
+  function setBoundaryY (obj){//Determines how the object reacts to the top and bottom walls
     obj.topY = obj.yPos;
     obj.bottomY = obj.yPos + $(obj.id).height();
     
-    if (key == "paddle"){//Made to stop at the wall
+    if (obj == paddleL || obj == paddleR){//Made to have the paddle stop at the wall
       if (obj.topY < 0){
         obj.speY = 0
         obj.yPos = 0
@@ -194,7 +170,7 @@ function runProgram(){
         obj.yPos =  BOARDHEIGHT - obj.hei
       }
     }
-    if (key == "ball"){//Made to reverse the speed of the object
+    if (obj == ball){//Made to reverse the speed of the ball when hit
       if (obj.topY < 0){
         obj.speY = -obj.speY
       }
