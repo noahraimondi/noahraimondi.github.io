@@ -79,3 +79,33 @@ body {
   top: 140px; /* Uncomment if you want to set a "starting" position */
 }
 
+#again {
+  background-color: rgb(117, 177, 192);
+  font-family: monospace;
+  width: 148px;
+  height: 33px;
+  position: absolute;
+  left: 405px; /* Uncomment if you want to set a "starting" position */   
+  top: 460px; /* Uncomment if you want to set a "starting" position */
+}
+
+#playP {
+  background-color: rgb(117, 168, 192);
+  text-decoration-color: aqua;
+  font-family: monospace;
+  width: 162px;
+  height: 33px;
+  position: absolute;
+  left: 605px; /* Uncomment if you want to set a "starting" position */   
+  top: 460px; /* Uncomment if you want to set a "starting" position */
+}
+
+#playC {
+  background-color: rgb(117, 168, 192);
+  font-family: monospace;
+  width: 148px;
+  height: 33px;
+  position: absolute;
+  left: 205px; /* Uncomment if you want to set a "starting" position */   
+  top: 460px; /* Uncomment if you want to set a "starting" position */
+}

@@ -48,7 +48,6 @@ function runProgram(){
   ////////////////////////////////////////////////////////////////////////////////
   ///////////////////////// CORE LOGIC ///////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
-
   /* 
   On each "tick" of the timer, a new frame is dynamically drawn using JavaScript
   by calling this function and executing the code inside.
@@ -180,6 +179,26 @@ function runProgram(){
     }
   }
 
+  ///// "A.I." Try Out /////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   ///// Point System Setup /////
   function scoreSystem (){//Reduces repetitive code
     scoreSet()
@@ -215,10 +234,10 @@ function runProgram(){
 
   ///// End The Game /////
   function endCondition (){//What is needed to win
-    if (scoreL == 30){
+    if (scoreL >= 30){
       winEvent("1")
     }
-    if (scoreR == 30){
+    if (scoreR >= 30){
       winEvent("2")
     }
   }
