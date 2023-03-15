@@ -138,19 +138,19 @@ function runProgram(){
     obj2.bottomY = obj2.yPos +$(obj2.id).height();
   
     if ((obj1.rightX > obj2.leftX) && (obj1.leftX < obj2.rightX) &&
-        (obj1.topY < obj2.bottomY) && (obj1.bottomY > obj2.topY)){
+        (obj1.topY < obj2.bottomY) && (obj1.bottomY > obj2.topY)){//If obj1 and obj2 have made contact
       return true;
     } else {
       return false
     }  
   }
-  function ballChange (speed){// adds speed based around whether the speed is negative or positive
-    if ((ball.speX * -1) > 0){
+  function ballChange (speed){//Adds speed based around whether the speed is negative or positive
+    if (ball.speX < 0){//Checks for the x-axis speed
       ball.speX += -speed
     } else{
       ball.speX += speed
     }
-    if ((ball.speY * -1) > 0){
+    if (ball.speY< 0){//Checks for the y-axis speed
       ball.speY += -speed
     } else{
       ball.speY += speed
@@ -161,20 +161,20 @@ function runProgram(){
     obj.bottomY = obj.yPos + $(obj.id).height();
     
     if (obj == paddleL || obj == paddleR){//Made to have the paddle stop at the wall
-      if (obj.topY < 0){
+      if (obj.topY < 0){//Result of hitting the top wall
         obj.speY = 0
         obj.yPos = 0
       }
-      if (obj.bottomY > BOARDHEIGHT){
+      if (obj.bottomY > BOARDHEIGHT){//Result of hitting the bottom wall
         obj.speY = 0
         obj.yPos =  BOARDHEIGHT - obj.hei
       }
     }
     if (obj == ball){//Made to reverse the speed of the ball when hit
-      if (obj.topY < 0){
+      if (obj.topY < 0){//Result of hitting the top wall
         obj.speY = -obj.speY
       }
-      if (obj.bottomY > BOARDHEIGHT){
+      if (obj.bottomY > BOARDHEIGHT){//Result of hitting the bottom wall
         obj.speY = -obj.speY
       }
     }
@@ -188,13 +188,13 @@ function runProgram(){
   function scoreSet (){//Sets up how points are scored
     ball.leftX = ball.xPos;
     ball.rightX = ball.xPos + $(ball.id).width();
-    if (ball.leftX < 0){
-      if (scoreL !== 0){
+    if (ball.leftX < 0){//Point setup for the left wall
+      if (scoreL !== 0){//Prevents the score from going past zero
         scoreL -= 1
       }
       scoreR = scoreR + 2
       afterScore();
-    } else if (ball.rightX > BOARDWIDTH){
+    } else if (ball.rightX > BOARDWIDTH){//Point setup for the right wall
       if (scoreR !== 0){
         scoreR -= 1
       }
