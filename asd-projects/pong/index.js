@@ -40,10 +40,11 @@ function runProgram(){
   var ball = GameItem(BOARDWIDTH/2, BOARDHEIGHT/2, Math.random() > 0.5 ? -3 : 3, Math.random() > 0.5 ? -3 : 3, "#ball")
   var scoreL = 0
   var scoreR = 0
-
+  
   // One-time setup
   let interval = setInterval(newFrame, FRAMES_PER_SECOND_INTERVAL);   // execute newFrame every 0.0166 seconds (60 Frames per second)
   $(document).on('keydown', handleKeyDown);                           // change 'eventType' to the type of event you want to handle
+  $('onePlay').w('keydown', handleKeyDown);                           // change 'eventType' to the type of event you want to handle
   //$(document).on('keyup', handleKeyUp);// Not Used
   ////////////////////////////////////////////////////////////////////////////////
   ///////////////////////// CORE LOGIC ///////////////////////////////////////////
@@ -67,6 +68,10 @@ function runProgram(){
     scoreSystem()
       //What happens when a player gets to the needed points
     endCondition()
+
+    onePlayer()
+
+    //document.getElementById("onePlay").onclick = function() {onePlayer()};
   }
   
   /* 
@@ -116,11 +121,11 @@ function runProgram(){
   
   ///// Speed Collision Setup /////
   function paddle (){//Sets up the paddle to reflect the ball when hit
-    if (doCollide(paddleL, ball)){
+    if (doCollide(ball, paddleL)){
       ball.speX = -ball.speX
       ballChange(0.5)
     }
-    if (doCollide(paddleR, ball)){
+    if (doCollide(ball, paddleR)){
       ball.speX = -ball.speX
       ballChange(0.5)
     }
@@ -180,24 +185,37 @@ function runProgram(){
   }
 
   ///// "A.I." Try Out /////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  function onePlayer (){
+    if(ball.xPos > BOARDWIDTH/3 && ball.speX > 0){
+      if (ball.yPos + ball.hei/2 > paddleR.yPos + paddleR.hei*0.33){
+        paddleR.speY = 3
+      }
+      if (ball.yPos + ball.hei/2 < paddleR.yPos + paddleR.hei*0.66){
+        paddleR.speY = -3
+      }
+    } else {
+      if (ball.yPos + ball.hei/2 == paddleR.yPos + paddleR.hei/2){
+        paddleR.speY = 0
+      }
+    }
+  }
+  function autoSpeed (speed){
+    if (scoreL > scoreR && speed > 0){
+      speed += 0.1
+    } else if (scoreL > scoreR && speed < 0){
+      speed -= 0.1
+    } else {
+      speed = speed
+    }
+  }
+  function twoPlayer (){}
+  /*
+  if ball is above the rPaddle then set pr speed to negative speed 
+  same for the opposite
+  speed around 3-5
+  interation with the buttons
+  system for...
+  */
 
   ///// Point System Setup /////
   function scoreSystem (){//Reduces repetitive code

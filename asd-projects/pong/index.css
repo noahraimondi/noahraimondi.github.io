@@ -16,8 +16,8 @@ body {
   width: 12px;
   height: 100px;
   position: absolute;
-  left: 10px; /* Uncomment if you want to set a "starting" position */
-  top: 100px;  /* Uncomment if you want to set a "starting" position */
+  left: 37px; /* Uncomment if you want to set a "starting" position */
+  top: 200px;  /* Uncomment if you want to set a "starting" position */
 }
 
 #paddle2 {
@@ -25,8 +25,8 @@ body {
   width: 12px;
   height: 100px;
   position: absolute;
-  left: 880px; /* Uncomment if you want to set a "starting" position */   
-  top: 100px; /* Uncomment if you want to set a "starting" position */
+  left: 876px; /* Uncomment if you want to set a "starting" position */   
+  top: 200px; /* Uncomment if you want to set a "starting" position */
 }
 
 #ball {
@@ -82,28 +82,28 @@ body {
 #again {
   background-color: rgb(117, 177, 192);
   font-family: monospace;
-  width: 148px;
+  width: 157px;
   height: 33px;
   position: absolute;
   left: 405px; /* Uncomment if you want to set a "starting" position */   
   top: 460px; /* Uncomment if you want to set a "starting" position */
 }
 
-#playP {
+#twoPlay {
   background-color: rgb(117, 168, 192);
   text-decoration-color: aqua;
   font-family: monospace;
-  width: 162px;
+  width: 183px;
   height: 33px;
   position: absolute;
   left: 605px; /* Uncomment if you want to set a "starting" position */   
   top: 460px; /* Uncomment if you want to set a "starting" position */
 }
 
-#playC {
+#onePlay {
   background-color: rgb(117, 168, 192);
   font-family: monospace;
-  width: 148px;
+  width: 157px;
   height: 33px;
   position: absolute;
   left: 205px; /* Uncomment if you want to set a "starting" position */   
