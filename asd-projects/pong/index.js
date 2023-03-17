@@ -44,7 +44,6 @@ function runProgram(){
   // One-time setup
   let interval = setInterval(newFrame, FRAMES_PER_SECOND_INTERVAL);   // execute newFrame every 0.0166 seconds (60 Frames per second)
   $(document).on('keydown', handleKeyDown);                           // change 'eventType' to the type of event you want to handle
-  $('onePlay').w('keydown', handleKeyDown);                           // change 'eventType' to the type of event you want to handle
   //$(document).on('keyup', handleKeyUp);// Not Used
   ////////////////////////////////////////////////////////////////////////////////
   ///////////////////////// CORE LOGIC ///////////////////////////////////////////
@@ -68,11 +67,9 @@ function runProgram(){
     scoreSystem()
       //What happens when a player gets to the needed points
     endCondition()
-
-    onePlayer()
-
-    //document.getElementById("onePlay").onclick = function() {onePlayer()};
-  }
+      //A button that lets one player play the game
+    document.getElementById("onePlay").onclick = function() {onePlayer()};
+    }
   
   /* 
   Called in response to events.
@@ -185,38 +182,48 @@ function runProgram(){
   }
 
   ///// "A.I." Try Out /////
-  function onePlayer (){
-    if(ball.xPos > BOARDWIDTH/3 && ball.speX > 0){
+  function onePlayer (){//function used to make oneCore work always
+    let interval = setInterval(oneCore, FRAMES_PER_SECOND_INTERVAL);   // execute newFrame every 0.0166 seconds (60 Frames per second)
+    twoPlayer(true)
+    //$('#twoPlay').prop('disabled', true)  Needed if the multiplayer button worked properly
+  }
+  function oneCore (){//The automated player for a single player setup
+    if(ball.xPos > BOARDWIDTH/6 && ball.speX > 0){
       if (ball.yPos + ball.hei/2 > paddleR.yPos + paddleR.hei*0.33){
         paddleR.speY = 3
       }
       if (ball.yPos + ball.hei/2 < paddleR.yPos + paddleR.hei*0.66){
         paddleR.speY = -3
       }
-    } else {
       if (ball.yPos + ball.hei/2 == paddleR.yPos + paddleR.hei/2){
-        paddleR.speY = 0
+          paddleR.speY = 0
       }
+    }  else {
+      paddleR.speY = 0
+      paddleR.yPos = paddleR.yPos
     }
   }
-  function autoSpeed (speed){
-    if (scoreL > scoreR && speed > 0){
-      speed += 0.1
-    } else if (scoreL > scoreR && speed < 0){
-      speed -= 0.1
-    } else {
-      speed = speed
-    }
-  }
-  function twoPlayer (){}
+  
   /*
-  if ball is above the rPaddle then set pr speed to negative speed 
-  same for the opposite
-  speed around 3-5
-  interation with the buttons
-  system for...
+  //Unable to get it set up properly but the singleplayer button works and putting all need code in hre even if it is not in the correct folder
+  <button style="font-size: 24px;" id='twoPlay'>Two Players</button>
+  #twoPlay {
+  background-color: rgb(117, 168, 192);
+  text-decoration-color: aqua;
+  font-family: monospace;
+  width: 183px;
+  height: 33px;
+  position: absolute;
+  left: 605px;
+  top: 460px;
+  }
+  function twoPlayer (){
+    let interval = setInterval(twoCore, FRAMES_PER_SECOND_INTERVAL);   // execute newFrame every 0.0166 seconds (60 Frames per second)
+    onePlayer(true)
+    $('#oneplay').prop('disabled', true)
+  }
+  function twoCore (){}
   */
-
   ///// Point System Setup /////
   function scoreSystem (){//Reduces repetitive code
     scoreSet()

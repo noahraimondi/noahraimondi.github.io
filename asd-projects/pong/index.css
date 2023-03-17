@@ -85,18 +85,7 @@ body {
   width: 157px;
   height: 33px;
   position: absolute;
-  left: 405px; /* Uncomment if you want to set a "starting" position */   
-  top: 460px; /* Uncomment if you want to set a "starting" position */
-}
-
-#twoPlay {
-  background-color: rgb(117, 168, 192);
-  text-decoration-color: aqua;
-  font-family: monospace;
-  width: 183px;
-  height: 33px;
-  position: absolute;
-  left: 605px; /* Uncomment if you want to set a "starting" position */   
+  left: 505px; /* Uncomment if you want to set a "starting" position */   
   top: 460px; /* Uncomment if you want to set a "starting" position */
 }
 
